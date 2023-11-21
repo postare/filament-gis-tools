@@ -52,7 +52,6 @@ export default function mapComponent({
 
             this.marker.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
 
-            $wire.set(this.statePath, Alpine.raw(this.newState));
         },
 
         removeMarker() {
@@ -65,7 +64,10 @@ export default function mapComponent({
         updateStateWithCoordinates({ lat, lng }) {
             this.lat = lat;
             this.lng = lng;
-            this.newState = { type: 'Point', coordinates: [lat, lng] };
+            const newState = { type: 'Point', coordinates: [lat, lng] };
+
+            const that = this;
+            this.$wire.set(that.statePath, newState);
         },
 
         initializeWatchers() {
