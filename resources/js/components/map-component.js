@@ -64,12 +64,8 @@ export default function mapComponent({
         updateStateWithCoordinates({ lat, lng }) {
             this.lat = lat;
             this.lng = lng;
-            const newState = { type: 'Point', coordinates: [lat, lng] };
 
-            const that = this;
-            this.$wire.set('data.location', newState);
-
-            console.log(this.$wire.get('data.location'));
+            this.$wire.set(Alpine.raw(this.statePath), { type: 'Point', coordinates: [lat, lng] });
         },
 
         initializeWatchers() {
