@@ -67,7 +67,9 @@ export default function mapComponent({
             const newState = { type: 'Point', coordinates: [lat, lng] };
 
             const that = this;
-            this.$wire.set(that.statePath, newState);
+            this.$wire.set('data.location', newState);
+
+            console.log(this.$wire.get('data.location'));
         },
 
         initializeWatchers() {
