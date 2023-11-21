@@ -77,8 +77,8 @@ export default function mapComponent({
         },
 
         initializeWatchers() {
-            this.$watch('lat', value => this.marker.setLatLng([value, this.lng]));
-            this.$watch('lng', value => this.marker.setLatLng([this.lat, value]));
+            // this.$watch('lat', value => this.marker.setLatLng([value, this.lng]));
+            // this.$watch('lng', value => this.marker.setLatLng([this.lat, value]));
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
