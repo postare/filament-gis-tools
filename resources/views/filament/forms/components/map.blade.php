@@ -6,7 +6,7 @@
         $tiles = $getTiles() ? json_encode($getTiles()) : '{}';
         $markerIcon = $getMarkerIcon() ? json_encode($getMarkerIcon()) : '{}';
         $draw = $getDraw() ? json_encode($getDraw()) : '{}';
-        $locate = $getLocate();
+        $locate = $getLocate() ? json_encode($getLocate()) : 'false';
     @endphp
 
     <div ax-load
