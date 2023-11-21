@@ -140,13 +140,13 @@ export default function mapComponent({
             this.map.pm.setLang("it");
             this.map.pm.addControls({
                 position: 'topleft',
-                drawCircle: false,
+                drawCircle: true,
                 drawCircleMarker: false,
-                drawPolyline: false,
+                drawPolyline: true,
                 drawRectangle: false,
-                drawPolygon: false,
-                drawMarker: true,
-                cutPolygon: false,
+                drawPolygon: true,
+                drawMarker: false,
+                cutPolygon: true,
                 editMode: false,
                 removalMode: false
             });
