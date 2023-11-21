@@ -234,7 +234,9 @@ export default function mapComponent({
 
             // Enable locate control
             if (this.locate) {
-                L.control.locate().addTo(this.map);
+                L.control.locate({
+                    position: "topright"
+                }).addTo(this.map);
             }
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
