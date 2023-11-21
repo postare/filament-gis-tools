@@ -74,7 +74,7 @@ use Postare\GisTools\Forms\Components\Map;
 Map::make('location')
     ->height(500) // Map height in pixels   
     ->showCoordinates() // Show an overlay with the coordinates of the point
-    
+    ->locate() // Show the user's location on the map
     // To set the starting point
     ->default([
         'type' => 'Point',
@@ -120,7 +120,27 @@ Map::make('location')
         'iconAnchor' => [30, 60],
     ])
     ->required(),
-````
+
+// If you are using two separate fields for latitude and longitude, you can proceed as follows:
+Map::make('location')
+//...
+->afterStateUpdated(function (Set $set, array $state): void {
+    $set('latitude', $state['coordinates'][0]);
+    $set('longitude', $state['coordinates'][1]);
+})
+
+TextInput::make('latitude'), // Field to store the latitude
+TextInput::make('longitude'), // Field to store the longitude
+```
+
+## How to draw on the map
+
+```php
+Map::make('location')
+    ->draw(active: true, statePath: 'geojson'), // true to enable drawing
+
+Textarea::make('geojson'), // Field to store the geojson
+```
 
 ## License
 
