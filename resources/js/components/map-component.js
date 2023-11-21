@@ -71,7 +71,7 @@ export default function mapComponent({
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
             this.$watch('newState', value => {
-                this.$wire.set(this.statePath, newState)
+                this.$wire.set(this.statePath, value)
             });
 
             this.map.on('zoomend', () => {
