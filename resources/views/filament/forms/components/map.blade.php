@@ -23,8 +23,9 @@
          })"
          x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('gis-tools-styles', package: 'postare/gis-tools'))]"
          x-ignore
+         wire:ignore
          class="relative">
-        <div x-ref="map" class="relative inset-0 z-10 w-full" style="height: @js($height)px" wire:ignore></div>
+        <div x-ref="map" class="relative inset-0 z-10 w-full" style="height: @js($height)px"></div>
         @if ($getShowCoordinates())
             <div class="absolute bottom-0 z-50 mb-2 w-full">
                 <div class="mx-auto grid max-w-sm gap-2 rounded-lg bg-white p-2 text-sm opacity-50 transition hover:opacity-100 md:grid-cols-2">
