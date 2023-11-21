@@ -4,6 +4,8 @@ import "@geoman-io/leaflet-geoman-free";
 
 import "leaflet-gesture-handling";
 
+import "leaflet.locatecontrol";
+
 
 export default function mapComponent({
                                          location,
@@ -152,7 +154,7 @@ export default function mapComponent({
                 drawPolygon: true,
                 drawMarker: false,
                 cutPolygon: true,
-                editMode: false,
+                editMode: true,
                 removalMode: false
             });
 
@@ -228,8 +230,25 @@ export default function mapComponent({
             // Enable gesture handling on the map
             this.map.gestureHandling.enable();
 
+            // Enable locate control
+            L.control
+                .locate({
+                    position: "topright",
+                    strings: {
+                        title: "Mostrami dove mi trovo",
+                        metersUnit: "metri",
+                        popup: "Dovresti trovarti entro {distance} {unit} da questo punto.",
+                        locateOptions: {
+                            watch: true,
+                            enableHighAccuracy: true,
+                            timeout: 30000,
+                        },
+                    },
+                })
+                .addTo(this.map);
 
-            if(this.draw.active !== undefined && this.draw.active) {
+            // Enable draw controls
+            if (this.draw.active !== undefined && this.draw.active) {
 
                 // Gruppo che contiene i layer di geojson
                 this.geoJsonGroup = L.featureGroup().addTo(this.map);
