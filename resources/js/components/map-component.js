@@ -70,7 +70,10 @@ export default function mapComponent({
             this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
-            this.$watch('newState', value => this.$wire.set(this.statePath, value, true));
+            this.$watch('newState', value => {
+                this.$wire.set(this.statePath, value, true)
+                console.log('new state', value);
+            });
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
