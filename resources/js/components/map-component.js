@@ -158,6 +158,10 @@ export default function mapComponent({
 
             // {{-- creazione --}}
             this.map.on("pm:create", (e) => {
+
+                console.log(e);
+                console.log(this.featureGroup);
+
                 this.featureGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
