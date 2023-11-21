@@ -1,6 +1,10 @@
 import L from 'leaflet';
+
 import "@geoman-io/leaflet-geoman-free";
 import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
+
+import "leaflet-gesture-handling";
+import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 
 export default function mapComponent({
                                          location,
@@ -149,6 +153,8 @@ export default function mapComponent({
             if (this.location && this.location.coordinates) {
                 this.addMarker();
             }
+
+            this.map.gestureHandling.enable();
         }
 
     }
