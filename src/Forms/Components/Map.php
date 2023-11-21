@@ -76,9 +76,12 @@ class Map extends Field
     /**
      * @param  array  $draw The draw options to use for the map.
      */
-    public function draw(array|\Closure $draw): static
+    public function draw(bool $active = false, string $statePath = 'geojson'): static
     {
-        $this->draw = $draw;
+        $this->draw = [
+            "active" => $active,
+            "statePath" => $statePath,
+        ];
 
         return $this;
     }

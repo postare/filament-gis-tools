@@ -228,9 +228,12 @@ export default function mapComponent({
             // Enable gesture handling on the map
             this.map.gestureHandling.enable();
 
+            // Gruppo che contiene i layer di geojson
+            this.geoJsonGroup = L.featureGroup().addTo(this.map);
+
             if(this.draw.active !== undefined && this.draw.active) {
-                // Gruppo che contiene i layer di geojson
-                this.geoJsonGroup = L.featureGroup().addTo(this.map);
+
+                this.geoJsonStatePath = 'data.' + this.draw.statePath;
 
                 // Enable geoman
                 this.initGeoman();
