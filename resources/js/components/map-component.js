@@ -22,6 +22,7 @@ export default function mapComponent({
 
     return {
         state,
+        newState: state,
         statePath,
         zoom: zoom || 10, // default zoom
         tiles: tiles || null,
@@ -62,15 +63,15 @@ export default function mapComponent({
         updateStateWithCoordinates({ lat, lng }) {
             this.lat = lat;
             this.lng = lng;
-            this.state = { type: 'Point', coordinates: [lat, lng] };
+            this.newState = { type: 'Point', coordinates: [lat, lng] };
         },
 
         initializeWatchers() {
             this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
-            this.$watch('state', value => {
-                this.$wire.set(this.statePath, value)
+            this.$watch('newState', value => {
+                this.$wire.set(this.statePath, newState)
             });
 
             this.map.on('zoomend', () => {
