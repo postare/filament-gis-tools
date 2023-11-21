@@ -37,6 +37,9 @@ export default function mapComponent({
         customIcon,
         markerIcon: defaultIcon,
 
+        // Gruppo che contiene i layer di geojson
+        featureGroup: null,
+        geoJsonStatePath: 'data.geojson',
 
         addMarker() {
             if (this.marker) {
@@ -150,6 +153,54 @@ export default function mapComponent({
                 editMode: false,
                 removalMode: false
             });
+
+            // {{-- creazione --}}
+            this.map.on("pm:create", (e) => {
+                this.featureGroup.addLayer(e.layer);
+                this.saveGeoJson();
+            });
+
+            this.map.on("pm:cut", (e) => {
+                this.featureGroup.removeLayer(e.originalLayer);
+                this.featureGroup.addLayer(e.layer);
+                this.saveGeoJson();
+            });
+
+            // {{-- edit --}}
+            this.map.on("pm:globaleditmodetoggled", (e) => {
+                this.saveGeoJson();
+            });
+
+            this.map.on("pm:globaldrawmodetoggled", (e) => {
+                this.saveGeoJson();
+            });
+
+            // {{-- drag --}}
+            this.map.on("pm:globaldragmodetoggled", (e) => {
+                this.saveGeoJson();
+            });
+
+            // {{-- Quando si rimuove un layer --}}
+            this.map.on("pm:remove", (e) => {
+                this.featureGroup.removeLayer(e.layer);
+                this.saveGeoJson();
+            });
+
+            this.map.on("pm:globalremovalmodetoggled", (e) => {
+                this.saveGeoJson();
+            });
+
+            this.map.on("pm:globalcutmodetoggled", (e) => {
+                this.saveGeoJson();
+            });
+
+            this.map.on("pm:globalrotatemodetoggled", (e) => {
+                this.saveGeoJson();
+            });
+        },
+
+        saveGeoJson() {
+            this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.featureGroup));
         },
 
         init: function () {
@@ -160,8 +211,10 @@ export default function mapComponent({
                 this.lng = this.location.coordinates[1];
             }
 
+            // Inizializza la mappa
             this.initMap();
 
+            // Inizializza i watcher
             this.initializeWatchers();
 
             // Aggiunge il marker se ci sono le coordinate.
@@ -169,8 +222,13 @@ export default function mapComponent({
                 this.addMarker();
             }
 
+            // Enable gesture handling on the map
             this.map.gestureHandling.enable();
 
+            // Gruppo che contiene i layer di geojson
+            this.featureGroup = L.featureGroup().addTo(this.map);
+
+            // Enable geoman
             this.initGeoman();
         }
 
