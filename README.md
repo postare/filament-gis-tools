@@ -79,8 +79,8 @@ Map::make('location')
     ->default([
         'type' => 'Point',
         'coordinates' => [
-            41.72, // longitude
-            13.34, // latitude
+            41.72, // latitude
+            13.34, // longitude
         ],
     ])
     

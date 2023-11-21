@@ -97,6 +97,10 @@ class Map extends Field
     {
         $state = parent::getState();
 
+        if(is_array($state)) {
+            return $state;
+        }
+
         return json_decode($state, true);
     }
 }
