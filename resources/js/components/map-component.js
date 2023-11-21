@@ -51,17 +51,13 @@ export default function mapComponent({
             this.updateStateWithCoordinates(this.map.getCenter());
 
             this.marker.on('dragend', function (e) {
-                const lat = e.target.getLatLng().lat;
-                const lng = e.target.getLatLng().lng;
-                const coordinates = {lat, lng};
-                
+                const coordinates = [Alpine.raw(e.target.getLatLng())];
                 that.updateStateWithCoordinates(coordinates);
                 that.$wire.set(Alpine.raw(that.statePath), {
                     type: 'Point',
-                    coordinates: [coordinates.lat, coordinates.lng]
+                    coordinates: [coordinates]
                 });
                 console.log(coordinates);
-                console.log(e.target);
             });
 
         },
