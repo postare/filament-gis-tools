@@ -62,14 +62,16 @@ export default function mapComponent({
         updateStateWithCoordinates({ lat, lng }) {
             this.lat = lat;
             this.lng = lng;
-            const state = { type: 'Point', coordinates: [lat, lng] };
-            console.log(state.coordinates, this.state.coordinates);
-            this.$wire.set(Alpine.raw(this.statePath), state)
+            this.state = { type: 'Point', coordinates: [lat, lng] };
         },
 
         initializeWatchers() {
             this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
+
+            this.$watch('state', value => {
+                this.$wire.set.debounce(Alpine.raw(this.statePath), value)
+            });
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
