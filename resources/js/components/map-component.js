@@ -137,6 +137,22 @@ export default function mapComponent({
             this.map = map;
         },
 
+        initGeoman() {
+            this.map.pm.setLang("it");
+            this.map.pm.addControls({
+                position: 'topleft',
+                drawCircle: false,
+                drawCircleMarker: false,
+                drawPolyline: false,
+                drawRectangle: false,
+                drawPolygon: false,
+                drawMarker: true,
+                cutPolygon: false,
+                editMode: false,
+                removalMode: false
+            });
+        },
+
         init: function () {
 
             // Imposta le coordinate se presenti nello stato.
@@ -155,6 +171,8 @@ export default function mapComponent({
             }
 
             this.map.gestureHandling.enable();
+
+            this.initGeoman();
         }
 
     }
