@@ -2,6 +2,7 @@ import L from 'leaflet';
 
 export default function mapComponent({
                                          state,
+                                         statePath,
                                          zoom,
                                          tiles,
                                          customIcon
@@ -60,7 +61,7 @@ export default function mapComponent({
             this.lat = lat;
             this.lng = lng;
             this.state = { type: 'Point', coordinates: [lat, lng] };
-            this.$wire.set(state, state)
+            this.$wire.set(this.statePath, this.state)
         },
 
         initializeWatchers() {
