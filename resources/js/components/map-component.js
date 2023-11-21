@@ -200,7 +200,10 @@ export default function mapComponent({
         },
 
         saveGeoJson() {
-            this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.featureGroup));
+
+            console.log(this.featureGroup.toGeoJSON());
+
+            this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.featureGroup.toGeoJSON()));
         },
 
         init: function () {
