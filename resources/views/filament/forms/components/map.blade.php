@@ -15,7 +15,7 @@
     <div ax-load
          ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('map-component', package: 'postare/gis-tools') }}"
          x-data="mapComponent({
-            state: $wire.entangle('{{ $getStatePath() }}'),
+            location: $wire.entangle('{{ $getStatePath() }}'),
             statePath: '{{ $getStatePath() }}',
             zoom: @js($zoom),
             tiles: {{ $tiles }},

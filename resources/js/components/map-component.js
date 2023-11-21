@@ -1,7 +1,7 @@
 import L from 'leaflet';
 
 export default function mapComponent({
-                                         state,
+                                         location,
                                          statePath,
                                          zoom,
                                          tiles,
@@ -21,8 +21,7 @@ export default function mapComponent({
     });
 
     return {
-        state,
-        newState: state,
+        location,
         statePath,
         zoom: zoom || 10, // default zoom
         tiles: tiles || null,
@@ -65,23 +64,12 @@ export default function mapComponent({
             this.lat = lat;
             this.lng = lng;
 
-            // this.$wire.set(Alpine.raw(this.statePath), { type: 'Point', coordinates: [lat, lng] });
+            this.$wire.set(Alpine.raw(this.statePath), { type: 'Point', coordinates: [lat, lng] });
         },
 
         initializeWatchers() {
             this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
-
-            // this.$watch('newState', value => {
-            //     this.$nextTick(() => {
-            //
-            //
-            //     setTimeout(() => {
-            //         this.$wire.set(this.statePath, Alpine.raw(this.newState))
-            //         console.log(Alpine.raw(this.newState));
-            //     }, 1000);
-            //     });
-            // });
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
@@ -140,9 +128,9 @@ export default function mapComponent({
         init: function () {
 
             // Imposta le coordinate se presenti nello stato.
-            if (this.state && this.state.coordinates) {
-                this.lat = this.state.coordinates[0];
-                this.lng = this.state.coordinates[1];
+            if (this.location && this.location.coordinates) {
+                this.lat = this.location.coordinates[0];
+                this.lng = this.location.coordinates[1];
             }
 
             this.initMap();
@@ -150,7 +138,7 @@ export default function mapComponent({
             this.initializeWatchers();
 
             // Aggiunge il marker se ci sono le coordinate.
-            if (this.state && this.state.coordinates) {
+            if (this.location && this.location.coordinates) {
                 this.addMarker();
             }
         }
