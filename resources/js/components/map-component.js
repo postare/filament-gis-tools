@@ -32,36 +32,26 @@ export default function mapComponent({
         customIcon,
         markerIcon: defaultIcon,
 
+
         addMarker() {
-            const that = this;
             if (this.marker) {
                 this.map.removeLayer(this.marker);
             }
-
 
             // custom icon
             if (this.customIcon.iconUrl !== undefined) {
                 this.markerIcon = L.icon(this.customIcon);
             }
 
-            const marker = L.marker(this.map.getCenter(), {
+            this.marker = L.marker(this.map.getCenter(), {
                 icon: this.markerIcon,
                 draggable: true
-            }).addTo(that.map);
+            }).addTo(this.map);
 
             this.updateStateWithCoordinates(this.map.getCenter());
 
-            marker.on('dragend', function (e) {
-                const coordinates = [e.target._latlng.lat, e.target._latlng.lng];
-                that.updateStateWithCoordinates(coordinates);
-                console.log(coordinates);
-                that.$wire.set(Alpine.raw(that.statePath), {
-                    type: 'Point',
-                    coordinates
-                });
-            });
+            this.marker.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
 
-            this.marker = marker;
         },
 
         removeMarker() {
@@ -74,15 +64,25 @@ export default function mapComponent({
         updateStateWithCoordinates({lat, lng}) {
             this.lat = lat;
             this.lng = lng;
+
+            this.$wire.set(Alpine.raw(this.statePath), {type: 'Cacca', coordinates: [1, 1]});
         },
 
         initializeWatchers() {
-            // this.$watch('lat', value => this.marker.setLatLng([value, this.lng]));
-            // this.$watch('lng', value => this.marker.setLatLng([this.lat, value]));
+            this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
+            this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
             });
+        },
+
+        updateMarkerAndMap(lat, lng) {
+            const newLatLng = [lat, lng];
+            this.marker.setLatLng(newLatLng);
+
+            // Center the map to the new position
+            // this.map.panTo(newLatLng);
         },
 
         // Prepara i layer di tiles in base alla configurazione data.
