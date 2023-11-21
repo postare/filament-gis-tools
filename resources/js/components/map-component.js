@@ -150,7 +150,7 @@ export default function mapComponent({
             this.map.pm.setLang("it");
             this.map.pm.addControls({
                 position: 'topleft',
-                drawCircle: true,
+                drawCircle: false,
                 drawCircleMarker: false,
                 drawPolyline: true,
                 drawRectangle: false,
