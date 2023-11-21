@@ -24,6 +24,7 @@
         "tailwindcss": "^3.3.3"
     },
     "dependencies": {
+        "@geoman-io/leaflet-geoman-free": "^2.14.2",
         "leaflet": "^1.9.4"
     }
 }
