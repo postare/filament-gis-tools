@@ -4,6 +4,7 @@
 .leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
     background-image: url(/vendor/gis-tools/images/marker-icon.png) !important;
 }
+
 .leaflet-control-layers-toggle {
     background-image: url(/vendor/gis-tools/images/layers.png) !important;
 }
