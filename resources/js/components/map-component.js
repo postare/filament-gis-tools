@@ -48,6 +48,7 @@ export default function mapComponent({
             }).addTo(this.map);
 
             this.updateStateWithCoordinates(this.map.getCenter());
+
             this.marker.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
         },
 
@@ -61,8 +62,8 @@ export default function mapComponent({
         updateStateWithCoordinates({ lat, lng }) {
             this.lat = lat;
             this.lng = lng;
-            this.state = { type: 'Point', coordinates: [lat, lng] };
-            this.$wire.set(this.statePath, this.state)
+            const state = { type: 'Point', coordinates: [lat, lng] };
+            this.$wire.set(this.statePath, state)
         },
 
         initializeWatchers() {
