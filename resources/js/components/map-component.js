@@ -59,7 +59,8 @@ export default function mapComponent({
 
             this.marker = L.marker(this.map.getCenter(), {
                 icon: this.markerIcon,
-                draggable: true
+                draggable: true,
+                pmIgnore: true // ignore marker for geoman
             }).addTo(this.map);
 
             this.updateStateWithCoordinates(this.map.getCenter());
@@ -155,6 +156,7 @@ export default function mapComponent({
                 drawRectangle: false,
                 drawPolygon: true,
                 drawMarker: false,
+                drawText: false,
                 cutPolygon: true,
                 editMode: true,
                 removalMode: false
