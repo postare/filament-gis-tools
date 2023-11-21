@@ -10,7 +10,8 @@ export default function mapComponent({
                                          statePath,
                                          zoom,
                                          tiles,
-                                         customIcon
+                                         customIcon,
+                                         draw,
                                      }) {
     const defaultLat = 41.8902;
     const defaultLng = 12.4923;
@@ -37,8 +38,9 @@ export default function mapComponent({
         customIcon,
         markerIcon: defaultIcon,
 
+        draw: draw || false,
         // Gruppo che contiene i layer di geojson
-        featureGroup: null,
+        geoJsonGroup: null,
         geoJsonStatePath: 'data.geojson',
 
         addMarker() {
@@ -200,10 +202,8 @@ export default function mapComponent({
         },
 
         saveGeoJson() {
-
-            console.log(this.featureGroup.toGeoJSON());
-
-            this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.featureGroup.toGeoJSON()));
+            const geoJson = this.geoJsonGroup.toGeoJSON();
+            this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJson));
         },
 
         init: function () {
@@ -228,11 +228,13 @@ export default function mapComponent({
             // Enable gesture handling on the map
             this.map.gestureHandling.enable();
 
-            // Gruppo che contiene i layer di geojson
-            this.featureGroup = L.featureGroup().addTo(this.map);
+            if(this.draw) {
+                // Gruppo che contiene i layer di geojson
+                this.geoJsonGroup = L.featureGroup().addTo(this.map);
 
-            // Enable geoman
-            this.initGeoman();
+                // Enable geoman
+                this.initGeoman();
+            }
         }
 
     }

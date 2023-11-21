@@ -18,6 +18,11 @@ class Map extends Field
 
     private \Closure|array $marker_icon = [];
 
+    private \Closure|array $draw = [
+        "active" => false,
+        "statePath" => "geojson",
+    ];
+
     /**
      * @param  int|\Closure|null  $zoom The initial zoom at which to display the map.
      */
@@ -68,6 +73,16 @@ class Map extends Field
         return $this;
     }
 
+    /**
+     * @param  array  $draw The draw options to use for the map.
+     */
+    public function draw(array|\Closure $draw): static
+    {
+        $this->draw = $draw;
+
+        return $this;
+    }
+
     public function getZoom(): ?int
     {
         return $this->evaluate($this->zoom);
@@ -91,6 +106,11 @@ class Map extends Field
     public function getMarkerIcon(): array
     {
         return $this->evaluate($this->marker_icon);
+    }
+
+    public function getDraw(): array
+    {
+        return $this->evaluate($this->draw);
     }
 
     public function getState(): mixed

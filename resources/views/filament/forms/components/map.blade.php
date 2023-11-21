@@ -5,6 +5,7 @@
         $zoom = $getZoom() ?? 13;
         $tiles = $getTiles() ? json_encode($getTiles()) : '{}';
         $markerIcon = $getMarkerIcon() ? json_encode($getMarkerIcon()) : '{}';
+        $draw = $getDraw();
     @endphp
 
     <div ax-load
@@ -16,6 +17,7 @@
             zoom: @js($zoom),
             tiles: {{ $tiles }},
             customIcon: {{ $markerIcon }},
+            draw: {{$draw}},
          })"
          x-ignore
          wire:ignore
