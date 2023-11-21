@@ -70,7 +70,7 @@ export default function mapComponent({
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
             this.$watch('state', value => {
-                this.$wire.set.debounce(Alpine.raw(this.statePath), value)
+                this.$wire.set(this.statePath, value)
             });
 
             this.map.on('zoomend', () => {
