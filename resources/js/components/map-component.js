@@ -13,11 +13,11 @@ export default function mapComponent({
     const defaultIcon = L.icon({
         iconUrl: '/vendor/gis-tools/images/marker-icon.png',
         shadowUrl: '/vendor/gis-tools/images/marker-shadow.png',
-        iconSize:     [25, 41], // size of the icon
-        shadowSize:   [41, 41], // size of the shadow
-        iconAnchor:   [12, 41], // point of the icon which will correspond to marker's location
+        iconSize: [25, 41], // size of the icon
+        shadowSize: [41, 41], // size of the shadow
+        iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
         shadowAnchor: [4, 41],  // the same for the shadow
-        popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
+        popupAnchor: [-3, -41] // point from which the popup should open relative to the iconAnchor
     });
 
     return {
@@ -38,7 +38,7 @@ export default function mapComponent({
             }
 
             // custom icon
-            if(this.customIcon.iconUrl !== undefined) {
+            if (this.customIcon.iconUrl !== undefined) {
                 this.markerIcon = L.icon(this.customIcon);
             }
 
@@ -49,7 +49,9 @@ export default function mapComponent({
 
             this.updateStateWithCoordinates(this.map.getCenter());
 
-            this.marker.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
+            const markerItem = Alpine.raw(this.marker);
+
+            markerItem.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
 
         },
 
@@ -60,11 +62,11 @@ export default function mapComponent({
             }
         },
 
-        updateStateWithCoordinates({ lat, lng }) {
+        updateStateWithCoordinates({lat, lng}) {
             this.lat = lat;
             this.lng = lng;
 
-            this.$wire.$set(Alpine.raw(this.statePath), { type: 'Cacca', coordinates: [lat, lng] });
+            this.$wire.$set(Alpine.raw(this.statePath), {type: 'Cacca', coordinates: [lat, lng]});
         },
 
         initializeWatchers() {

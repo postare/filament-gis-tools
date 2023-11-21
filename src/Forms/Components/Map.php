@@ -92,4 +92,13 @@ class Map extends Field
     {
         return $this->evaluate($this->marker_icon);
     }
+
+    public function getState(): mixed
+    {
+        $state = parent::getState();
+
+        ray($state)->orange();
+
+        return $state;
+    }
 }
