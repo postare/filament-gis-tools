@@ -51,6 +51,8 @@ export default function mapComponent({
             this.updateStateWithCoordinates(this.map.getCenter());
 
             this.marker.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
+
+            $wire.set(this.statePath, Alpine.raw(this.newState));
         },
 
         removeMarker() {
@@ -70,16 +72,16 @@ export default function mapComponent({
             this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
-            this.$watch('newState', value => {
-                this.$nextTick(() => {
-
-
-                setTimeout(() => {
-                    this.$wire.set(this.statePath, Alpine.raw(this.newState))
-                    console.log(Alpine.raw(this.newState));
-                }, 1000);
-                });
-            });
+            // this.$watch('newState', value => {
+            //     this.$nextTick(() => {
+            //
+            //
+            //     setTimeout(() => {
+            //         this.$wire.set(this.statePath, Alpine.raw(this.newState))
+            //         console.log(Alpine.raw(this.newState));
+            //     }, 1000);
+            //     });
+            // });
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
