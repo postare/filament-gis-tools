@@ -51,7 +51,7 @@ export default function mapComponent({
             this.updateStateWithCoordinates(this.map.getCenter());
 
             this.marker.on('dragend', function (e) {
-                const coordinates = [Alpine.raw(e.target.getLatLng())];
+                const coordinates = [e.target._latlng.lat, e.target._latlng.lng];
                 that.updateStateWithCoordinates(coordinates);
                 that.$wire.set(Alpine.raw(that.statePath), {
                     type: 'Point',
