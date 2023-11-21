@@ -1,8 +1,7 @@
 /*@import '../../vendor/filament/filament/resources/css/theme.css';*/
+@import '../../node_modules/leaflet/dist/leaflet.css';
 
 @tailwind components;
-
-@import '../../node_modules/leaflet/dist/leaflet.css';
 
 .leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
     background-image: url(/vendor/gis-tools/images/marker-icon.png) !important;
