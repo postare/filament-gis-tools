@@ -97,8 +97,6 @@ class Map extends Field
     {
         $state = parent::getState();
 
-        ray($state)->orange();
-
-        return $state;
+        return json_decode($state, true);
     }
 }

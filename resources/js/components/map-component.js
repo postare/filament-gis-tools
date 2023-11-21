@@ -70,7 +70,7 @@ export default function mapComponent({
                 coordinates: [this.lat, this.lng]
             });
 
-            this.$wire.set(this.statePath, JSON.parse(state));
+            this.$wire.set(this.statePath, state);
         },
 
         initializeWatchers() {
