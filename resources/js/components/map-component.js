@@ -52,6 +52,10 @@ export default function mapComponent({
 
             this.marker.on('dragend', function (e) {
                 that.updateStateWithCoordinates(e.target.getLatLng());
+                this.$wire.$set(Alpine.raw(this.statePath), {
+                    type: 'Cacca',
+                    coordinates: [Alpine.raw(e.target.getLatLng())]
+                });
             });
 
         },
@@ -67,7 +71,7 @@ export default function mapComponent({
             this.lat = lat;
             this.lng = lng;
 
-            this.$wire.$set(Alpine.raw(this.statePath), {type: 'Cacca', coordinates: [lat, lng]});
+
         },
 
         initializeWatchers() {
