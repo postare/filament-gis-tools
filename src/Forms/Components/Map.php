@@ -23,6 +23,8 @@ class Map extends Field
         "statePath" => "geojson",
     ];
 
+    private bool $locate = false;
+
     /**
      * @param  int|\Closure|null  $zoom The initial zoom at which to display the map.
      */
@@ -76,12 +78,22 @@ class Map extends Field
     /**
      * @param  array  $draw The draw options to use for the map.
      */
-    public function draw(bool $active = false, string $statePath = 'geojson'): static
+    public function draw(bool $active = true, string $statePath = 'geojson'): static
     {
         $this->draw = [
             "active" => $active,
             "statePath" => $statePath,
         ];
+
+        return $this;
+    }
+
+    /**
+     * @param  bool  $locate Whether to show the locate button.
+     */
+    public function locate(bool $locate = true): static
+    {
+        $this->locate = $locate;
 
         return $this;
     }
@@ -114,6 +126,11 @@ class Map extends Field
     public function getDraw(): array
     {
         return $this->evaluate($this->draw);
+    }
+
+    public function getLocate(): bool
+    {
+        return $this->evaluate($this->locate);
     }
 
     public function getState(): mixed

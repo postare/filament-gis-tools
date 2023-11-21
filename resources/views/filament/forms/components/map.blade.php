@@ -6,6 +6,7 @@
         $tiles = $getTiles() ? json_encode($getTiles()) : '{}';
         $markerIcon = $getMarkerIcon() ? json_encode($getMarkerIcon()) : '{}';
         $draw = $getDraw() ? json_encode($getDraw()) : '{}';
+        $locate = $getLocate();
     @endphp
 
     <div ax-load
@@ -18,6 +19,7 @@
             tiles: {{ $tiles }},
             customIcon: {{ $markerIcon }},
             draw: {{  $draw }},
+            locate: {{$locate}},
          })"
          x-ignore
          wire:ignore

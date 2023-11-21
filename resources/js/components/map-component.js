@@ -14,6 +14,7 @@ export default function mapComponent({
                                          tiles,
                                          customIcon,
                                          draw,
+                                         locate,
                                      }) {
     const defaultLat = 41.8902;
     const defaultLng = 12.4923;
@@ -39,6 +40,7 @@ export default function mapComponent({
         marker: null,
         customIcon,
         markerIcon: defaultIcon,
+        locate,
 
         draw: draw || false,
         // Gruppo che contiene i layer di geojson
@@ -231,22 +233,9 @@ export default function mapComponent({
             this.map.gestureHandling.enable();
 
             // Enable locate control
-            L.control
-                .locate({
-                    position: "topright",
-                    strings: {
-                        title: "Mostrami dove mi trovo",
-                        metersUnit: "metri",
-                        popup: "Dovresti trovarti entro {distance} {unit} da questo punto.",
-                        locateOptions: {
-                            watch: true,
-                            enableHighAccuracy: true,
-                            timeout: 30000,
-                        },
-                    },
-                })
-                .addTo(this.map);
-
+            if (this.locate) {
+                L.control.locate().addTo(this.map);
+            }
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
 
