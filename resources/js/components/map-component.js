@@ -66,6 +66,8 @@ export default function mapComponent({
             this.lng = lng;
 
             this.$wire.set(Alpine.raw(this.statePath), {type: 'Cacca', coordinates: [1, 1]});
+
+            console.log('updateStateWithCoordinates', this.lat, this.lng);
         },
 
         initializeWatchers() {
