@@ -70,13 +70,13 @@ export default function mapComponent({
         },
 
         updateStateWithCoordinates({lat, lng}) {
-            // this.lat = lat;
-            // this.lng = lng;
+            this.lat = lat;
+            this.lng = lng;
         },
 
         initializeWatchers() {
-            this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
-            this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
+            // this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
+            // this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
