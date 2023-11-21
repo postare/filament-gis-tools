@@ -1,4 +1,7 @@
 /*@import '../../vendor/filament/filament/resources/css/theme.css';*/
+
+@tailwind components;
+
 @import '../../node_modules/leaflet/dist/leaflet.css';
 
 .leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
