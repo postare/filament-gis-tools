@@ -75,20 +75,12 @@ export default function mapComponent({
         },
 
         initializeWatchers() {
-            // this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
-            // this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
+            this.$watch('lat', value => this.marker.setLatLng([value, this.lng]));
+            this.$watch('lng', value => this.marker.setLatLng([this.lat, value]));
 
             this.map.on('zoomend', () => {
                 this.zoom = this.map.getZoom();
             });
-        },
-
-        updateMarkerAndMap(lat, lng) {
-            const newLatLng = [lat, lng];
-            this.marker.setLatLng(newLatLng);
-
-            // Center the map to the new position
-            // this.map.panTo(newLatLng);
         },
 
         // Prepara i layer di tiles in base alla configurazione data.
