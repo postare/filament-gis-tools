@@ -55,7 +55,7 @@ export default function mapComponent({
                 that.updateStateWithCoordinates(coordinates);
                 that.$wire.set(Alpine.raw(that.statePath), {
                     type: 'Point',
-                    coordinates: [coordinates]
+                    coordinates: [coordinates.lat, coordinates.lng]
                 });
                 console.log(coordinates);
                 console.log(e.target);
