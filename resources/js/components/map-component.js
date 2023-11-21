@@ -158,17 +158,13 @@ export default function mapComponent({
 
             // {{-- creazione --}}
             this.map.on("pm:create", (e) => {
-
-                console.log(e);
-                console.log(this.featureGroup);
-
-                this.featureGroup.addLayer(e.layer);
+                this.geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
             this.map.on("pm:cut", (e) => {
-                this.featureGroup.removeLayer(e.originalLayer);
-                this.featureGroup.addLayer(e.layer);
+                this.geoJsonGroup.removeLayer(e.originalLayer);
+                this.geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
@@ -188,7 +184,7 @@ export default function mapComponent({
 
             // {{-- Quando si rimuove un layer --}}
             this.map.on("pm:remove", (e) => {
-                this.featureGroup.removeLayer(e.layer);
+                this.geoJsonGroup.removeLayer(e.layer);
                 this.saveGeoJson();
             });
 
@@ -232,11 +228,11 @@ export default function mapComponent({
             // Enable gesture handling on the map
             this.map.gestureHandling.enable();
 
-            // Gruppo che contiene i layer di geojson
-            this.geoJsonGroup = L.featureGroup().addTo(this.map);
 
             if(this.draw.active !== undefined && this.draw.active) {
 
+                // Gruppo che contiene i layer di geojson
+                this.geoJsonGroup = L.featureGroup().addTo(this.map);
                 this.geoJsonStatePath = 'data.' + this.draw.statePath;
 
                 // Enable geoman
