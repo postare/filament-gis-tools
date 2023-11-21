@@ -63,6 +63,7 @@ export default function mapComponent({
             this.lat = lat;
             this.lng = lng;
             const state = { type: 'Point', coordinates: [lat, lng] };
+            console.log(state.coordinates);
             this.$wire.set(this.statePath, state)
         },
 
