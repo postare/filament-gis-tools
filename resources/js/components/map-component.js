@@ -38,28 +38,30 @@ export default function mapComponent({
                 this.map.removeLayer(this.marker);
             }
 
+
             // custom icon
             if (this.customIcon.iconUrl !== undefined) {
                 this.markerIcon = L.icon(this.customIcon);
             }
 
-            this.marker = L.marker(this.map.getCenter(), {
+            const marker = L.marker(this.map.getCenter(), {
                 icon: this.markerIcon,
                 draggable: true
-            }).addTo(this.map);
+            }).addTo(that.map);
 
             this.updateStateWithCoordinates(this.map.getCenter());
 
-            this.marker.on('dragend', function (e) {
+            marker.on('dragend', function (e) {
                 const coordinates = [e.target._latlng.lat, e.target._latlng.lng];
                 that.updateStateWithCoordinates(coordinates);
+                console.log(coordinates);
                 that.$wire.set(Alpine.raw(that.statePath), {
                     type: 'Point',
                     coordinates
                 });
-                console.log(coordinates);
             });
 
+            this.marker = marker;
         },
 
         removeMarker() {
