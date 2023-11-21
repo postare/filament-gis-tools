@@ -22,6 +22,7 @@ export default function mapComponent({
 
     return {
         state,
+        statePath,
         zoom: zoom || 10, // default zoom
         tiles: tiles || null,
         map: null,
