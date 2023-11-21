@@ -16,7 +16,7 @@ export default function mapComponent({
         iconSize: [25, 41], // size of the icon
         shadowSize: [41, 41], // size of the shadow
         iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
-        shadowAnchor: [0, 41],  // the same for the shadow
+        shadowAnchor: [-8, 41],  // the same for the shadow
         popupAnchor: [-3, -41] // point from which the popup should open relative to the iconAnchor
     });
 
