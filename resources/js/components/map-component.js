@@ -33,6 +33,7 @@ export default function mapComponent({
         markerIcon: defaultIcon,
 
         addMarker() {
+            const that = this;
             if (this.marker) {
                 this.map.removeLayer(this.marker);
             }
@@ -49,9 +50,9 @@ export default function mapComponent({
 
             this.updateStateWithCoordinates(this.map.getCenter());
 
-            const markerItem = Alpine.raw(this.marker);
-
-            markerItem.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
+            this.marker.on('dragend', function (e) {
+                that.updateStateWithCoordinates(e.target.getLatLng());
+            });
 
         },
 
