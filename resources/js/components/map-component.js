@@ -64,7 +64,8 @@ export default function mapComponent({
             this.lat = lat;
             this.lng = lng;
 
-            this.$wire.$set(Alpine.raw(this.statePath), { type: 'Point', coordinates: [lat, lng] });
+            // this.$wire.$set(Alpine.raw(this.statePath), { type: 'Point', coordinates: [lat, lng] });
+            this.@set(Alpine.raw(this.statePath), { type: 'Point', coordinates: [lat, lng] });
         },
 
         initializeWatchers() {
