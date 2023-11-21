@@ -72,7 +72,7 @@ export default function mapComponent({
 
             this.$watch('newState', value => {
                 this.$nextTick(() => {
-                    this.$wire.set(this.statePath, Alpine.raw(value))
+                    this.$wire.set(this.statePath, Alpine.raw(this.newState))
                 });
             });
 
