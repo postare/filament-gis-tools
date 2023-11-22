@@ -276,8 +276,7 @@ export default function mapComponent({
 
             // Load geojson feature
             if (this.geoJsonFeature) {
-                console.log(this.geoJsonFeature);
-                // this.loadGeoJson();
+                this.loadGeoJson();
             }
         }
 

@@ -7,7 +7,7 @@
         $markerIcon = $getMarkerIcon() ? json_encode($getMarkerIcon()) : '{}';
         $draw = $getDraw() ? json_encode($getDraw()) : '{}';
         $locate = $getLocate() ? json_encode($getLocate()) : '{}';
-        $geoJson = $getGeoJson() ? json_encode($getGeoJson()) : '{}';
+        $geoJson = $getGeoJson() ? json_encode($getGeoJson()) : 'null';
 
     @endphp
 
