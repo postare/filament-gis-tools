@@ -115,7 +115,7 @@ class Map extends Field
             "drawText" =>  false,
             "cutPolygon" =>  true,
             "editMode" =>  true,
-            "removalMode" =>  false
+            "removalMode" =>  true
         ];
 
         $this->draw = [
