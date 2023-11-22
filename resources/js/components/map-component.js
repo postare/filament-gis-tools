@@ -248,9 +248,8 @@ export default function mapComponent({
         },
 
         loadGeoJson() {
-
-
-            L.geoJSON(JSON.parse(geoJsonFeature)).addTo(geoJsonGroup);
+            const layer = L.geoJSON(JSON.parse(geoJsonFeature));
+            geoJsonGroup.addLayer(layer);
         },
 
         init: function () {
