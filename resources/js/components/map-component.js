@@ -6,6 +6,8 @@ import "leaflet-gesture-handling";
 
 import "leaflet.locatecontrol";
 
+var mappa;
+
 
 export default function mapComponent({
                                          location,
@@ -144,7 +146,7 @@ export default function mapComponent({
                 L.control.layers(tileLayers).addTo(map);
             }
 
-            this.map = map;
+            mappa = map;
         },
 
         // Geoman Plugin - https://geoman.io/leaflet-geoman
