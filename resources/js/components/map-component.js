@@ -250,7 +250,7 @@ export default function mapComponent({
 
             console.log(layer);
 
-            geoJsonGroup.addLayer(layer);
+            geoJsonGroup.addLayer(layer._layers[Object.keys(layer._layers)[0]]);
         },
 
         init: function () {
