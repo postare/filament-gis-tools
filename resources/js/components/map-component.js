@@ -147,19 +147,19 @@ export default function mapComponent({
         },
 
         initGeoman() {
-            this.map.pm.setLang("it");
+            this.map.pm.setLang(draw.options.lang);
             this.map.pm.addControls({
-                position: 'topleft',
-                drawCircle: false,
-                drawCircleMarker: false,
-                drawPolyline: true,
-                drawRectangle: false,
-                drawPolygon: true,
-                drawMarker: false,
-                drawText: false,
-                cutPolygon: true,
-                editMode: true,
-                removalMode: false
+                position: draw.options.position,
+                drawCircle: draw.options.drawCircle,
+                drawCircleMarker: draw.options.drawCircleMarker,
+                drawPolyline: draw.options.drawPolyline,
+                drawRectangle: draw.options.drawRectangle,
+                drawPolygon: draw.options.drawPolygon,
+                drawMarker: draw.options.drawMarker,
+                drawText: draw.options.drawText,
+                cutPolygon: draw.options.cutPolygon,
+                editMode: draw.options.editMode,
+                removalMode: draw.options.removalMode,
             });
 
             // {{-- creazione --}}

@@ -18,7 +18,9 @@ class Map extends Field
 
     private \Closure|array $marker_icon = [];
 
-    private \Closure|array $draw = [];
+    private \Closure|array $draw = [
+        "active" => false
+    ];
 
     private bool $locate = false;
 
@@ -75,10 +77,34 @@ class Map extends Field
     /**
      * @param  array  $draw The draw options to use for the map.
      */
+    /**
+     * @param  bool  $active Whether to activate the draw options.
+     * @param  string  $statePath The path to the state.
+     * @param  array  $options The draw options to use for the map.
+     *
+     * Possible options:
+     * - lang:              string  The language to use for the draw toolbar. Possible values are 'en', 'de', 'es', 'fr', 'it', 'ja', 'nl', 'ru', 'zh' or 'pt-br'
+     * - position:          string  The position of the draw toolbar. Possible values are 'topleft', 'topright', 'bottomleft' or 'bottomright'
+     * - drawCircle:        boolean Whether to draw circles.
+     * - drawCircleMarker:  bool    Whether to draw circle markers.
+     * - drawPolyline:      bool    Whether to draw polylines.
+     * - drawRectangle:     bool    Whether to draw rectangles.
+     * - drawPolygon:       bool    Whether to draw polygons.
+     * - drawMarker:        bool    Whether to draw markers.
+     * - drawText:          bool    Whether to draw text.
+     * - cutPolygon:        bool    Whether to cut polygons.
+     * - editMode:          bool    Whether to activate edit mode.
+     * - removalMode:       bool    Whether to activate removal mode.
+     *
+     */
     public function draw(
         bool $active = true,
         string $statePath = 'geojson',
-        array $options = [
+        array $options = []): static
+    {
+
+        $default_options = [
+            "lang" =>  'en',
             "position" =>  'topleft',
             "drawCircle" =>  false,
             "drawCircleMarker" =>  false,
@@ -90,12 +116,12 @@ class Map extends Field
             "cutPolygon" =>  true,
             "editMode" =>  true,
             "removalMode" =>  false
-        ]): static
-    {
+        ];
+
         $this->draw = [
             "active" => $active,
             "statePath" => $statePath,
-            "options" => $options,
+            "options" => array_merge($default_options, $options)
         ];
 
         return $this;
