@@ -254,7 +254,7 @@ export default function mapComponent({
 
         loadGeoJson() {
 
-            jsonString = JSON.parse(this.geoJsonFeature);
+            const jsonString = JSON.parse(this.geoJsonFeature);
 
             featureGroup.clearLayers();
 
