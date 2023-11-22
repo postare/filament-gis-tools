@@ -208,23 +208,19 @@ export default function mapComponent({
             });
         },
 
-        // Leaflet.Locate Plugin - https://github.com/domoritz/leaflet-locatecontrol
-        initLeafletLocate() {
-
-            console.log(this.locate);
-            const that = this;
-
-            L.control.locate({
-                position: this.locate.position,
-                // flyTo: this.locate.flyTo,
-                // locateOptions: {
-                //     enableHighAccuracy: this.locate.enableHighAccuracy,
-                //     watch: this.locate.watch,
-                //     timeout: this.locate.timeout,
-                //     maximumAge: this.locate.maximumAge,
-                // }
-            }).addTo(that.map);
-        },
+        // // Leaflet.Locate Plugin - https://github.com/domoritz/leaflet-locatecontrol
+        // initLeafletLocate() {
+        //     L.control.locate({
+        //         position: this.locate.position,
+        //         flyTo: this.locate.flyTo,
+        //         locateOptions: {
+        //             enableHighAccuracy: this.locate.enableHighAccuracy,
+        //             watch: this.locate.watch,
+        //             timeout: this.locate.timeout,
+        //             maximumAge: this.locate.maximumAge,
+        //         }
+        //     }).addTo(this.map);
+        // },
 
         saveGeoJson() {
             const geoJson = this.geoJsonGroup.toGeoJSON();
@@ -255,7 +251,17 @@ export default function mapComponent({
 
             // Enable locate control
             if (this.locate.active !== undefined && this.locate.active) {
-                this.initLeafletLocate();
+                // this.initLeafletLocate();
+                L.control.locate({
+                    position: this.locate.position,
+                    flyTo: this.locate.flyTo,
+                    locateOptions: {
+                        enableHighAccuracy: this.locate.enableHighAccuracy,
+                        watch: this.locate.watch,
+                        timeout: this.locate.timeout,
+                        maximumAge: this.locate.maximumAge,
+                    }
+                }).addTo(this.map);
             }
 
             // Enable draw controls
