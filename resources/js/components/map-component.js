@@ -251,7 +251,17 @@ export default function mapComponent({
 
             // Enable locate control
             if (this.locate.active !== undefined && this.locate.active) {
-                this.initLeafletLocate();
+                // this.initLeafletLocate();
+                L.control.locate({
+                    position: this.locate.position,
+                    flyTo: this.locate.flyTo,
+                    locateOptions: {
+                        enableHighAccuracy: this.locate.enableHighAccuracy,
+                        watch: this.locate.watch,
+                        timeout: this.locate.timeout,
+                        maximumAge: this.locate.maximumAge,
+                    }
+                }).addTo(this.map);
             }
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
