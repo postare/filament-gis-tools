@@ -18,16 +18,11 @@ class Map extends Field
 
     private \Closure|array $marker_icon = [];
 
-    private \Closure|array $draw = [
-        "active" => false,
-        "statePath" => 'geojson',
-        "options" => []
-    ];
+    private \Closure|array $draw = [];
 
-    private \Closure|array $locate = [
-        "active" => false,
-        "options" => []
-    ];
+    private \Closure|array $locate = [];
+
+    private \Closure|string|null $geoJson = null;
 
     /**
      * @param  int|\Closure|null  $zoom The initial zoom at which to display the map.
@@ -165,6 +160,13 @@ class Map extends Field
         return $this;
     }
 
+    public function geoJson(string|\Closure|null $geoJson): static
+    {
+        $this->geoJson = $geoJson;
+
+        return $this;
+    }
+
     public function getZoom(): ?int
     {
         return $this->evaluate($this->zoom);
@@ -198,6 +200,11 @@ class Map extends Field
     public function getLocate(): array
     {
         return $this->evaluate($this->locate);
+    }
+
+    public function getGeoJson(): ?string
+    {
+        return $this->evaluate($this->geoJson);
     }
 
     public function getState(): mixed

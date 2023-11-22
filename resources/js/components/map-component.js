@@ -15,6 +15,7 @@ export default function mapComponent({
                                          customIcon,
                                          draw,
                                          locate,
+                                         geojsonFeature
                                      }) {
     const defaultLat = 41.8902;
     const defaultLng = 12.4923;
@@ -40,6 +41,7 @@ export default function mapComponent({
         marker: null,
         customIcon,
         markerIcon: defaultIcon,
+        geojsonFeature: geojsonFeature || null,
         locate: locate || false,
 
         draw: draw || false,
@@ -208,23 +210,29 @@ export default function mapComponent({
             });
         },
 
-        // // Leaflet.Locate Plugin - https://github.com/domoritz/leaflet-locatecontrol
-        // initLeafletLocate() {
-        //     L.control.locate({
-        //         position: this.locate.position,
-        //         flyTo: this.locate.flyTo,
-        //         locateOptions: {
-        //             enableHighAccuracy: this.locate.enableHighAccuracy,
-        //             watch: this.locate.watch,
-        //             timeout: this.locate.timeout,
-        //             maximumAge: this.locate.maximumAge,
-        //         }
-        //     }).addTo(this.map);
-        // },
+        // Leaflet.Locate Plugin - https://github.com/domoritz/leaflet-locatecontrol
+        initLeafletLocate() {
+            const locateOptions = {...this.locate.options};
+
+            L.control.locate({
+                position: locateOptions.position,
+                flyTo: locateOptions.flyTo,
+                locateOptions: {
+                    enableHighAccuracy: locateOptions.enableHighAccuracy,
+                    watch: locateOptions.watch,
+                    timeout: locateOptions.timeout,
+                    maximumAge: locateOptions.maximumAge,
+                }
+            }).addTo(this.map);
+        },
 
         saveGeoJson() {
             const geoJson = this.geoJsonGroup.toGeoJSON();
             this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJson));
+        },
+
+        loadGeoJson() {
+            L.geoJSON(geojsonFeature).addTo(this.map);
         },
 
         init: function () {
@@ -237,6 +245,9 @@ export default function mapComponent({
 
             // Inizializza la mappa
             this.initMap();
+
+            // Gruppo che contiene i layer di geojson
+            this.geoJsonGroup = L.featureGroup().addTo(this.map);
 
             // Inizializza i watcher
             this.initializeWatchers();
@@ -251,30 +262,21 @@ export default function mapComponent({
 
             // Enable locate control
             if (this.locate.active !== undefined && this.locate.active) {
-                // this.initLeafletLocate();
-                const locateOptions = {...this.locate.options};
-
-                L.control.locate({
-                    position: locateOptions.position,
-                    flyTo: locateOptions.flyTo,
-                    locateOptions: {
-                        enableHighAccuracy: locateOptions.enableHighAccuracy,
-                        watch: locateOptions.watch,
-                        timeout: locateOptions.timeout,
-                        maximumAge: locateOptions.maximumAge,
-                    }
-                }).addTo(this.map);
+                this.initLeafletLocate();
             }
 
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
 
-                // Gruppo che contiene i layer di geojson
-                this.geoJsonGroup = L.featureGroup().addTo(this.map);
                 this.geoJsonStatePath = 'data.' + this.draw.statePath;
 
                 // Enable geoman
                 this.initGeoman();
+            }
+
+            // Load geojson feature
+            if (this.geojsonFeature) {
+                this.loadGeoJson();
             }
         }
 

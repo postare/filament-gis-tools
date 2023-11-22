@@ -7,6 +7,7 @@
         $markerIcon = $getMarkerIcon() ? json_encode($getMarkerIcon()) : '{}';
         $draw = $getDraw() ? json_encode($getDraw()) : '{}';
         $locate = $getLocate() ? json_encode($getLocate()) : '{}';
+        $geojson = $getGeoJson() ? json_encode($getGeoJson()) : '{}';
     @endphp
 
     <div ax-load
@@ -20,6 +21,7 @@
             customIcon: {{ $markerIcon }},
             draw: {{ $draw }},
             locate: {{ $locate }},
+            geojson: {{ $geojson }},
          })"
          x-ignore
          wire:ignore
