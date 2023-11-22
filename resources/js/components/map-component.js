@@ -40,7 +40,7 @@ export default function mapComponent({
         marker: null,
         customIcon,
         markerIcon: defaultIcon,
-        locate,
+        locate: locate || false,
 
         draw: draw || false,
         // Gruppo che contiene i layer di geojson
