@@ -247,7 +247,10 @@ export default function mapComponent({
 
         loadGeoJson() {
             const layer = L.geoJSON(JSON.parse(geoJsonFeature));
-            Lmap.addLayer(layer);
+
+            console.log(layer);
+
+            geoJsonGroup.addLayer(layer);
         },
 
         init: function () {
