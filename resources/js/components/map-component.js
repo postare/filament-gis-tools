@@ -246,11 +246,17 @@ export default function mapComponent({
         },
 
         loadGeoJson() {
-            const layer = L.geoJSON(JSON.parse(geoJsonFeature));
+            // const layer = L.geoJSON(JSON.parse(geoJsonFeature));
+            //
+            // console.log(layer);
+            //
+            // geoJsonGroup.addLayer(layer._layers[Object.keys(layer._layers)[0]]);
 
-            console.log(layer);
-
-            geoJsonGroup.addLayer(layer._layers[Object.keys(layer._layers)[0]]);
+            L.geoJSON(JSON.parse(geoJsonFeature),{
+                onEachFeature: function (feature, layer) {
+                    geoJsonGroup.addLayer(layer);
+                }
+            });
         },
 
         init: function () {
