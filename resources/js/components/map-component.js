@@ -194,7 +194,7 @@ export default function mapComponent({
             this.map.on("pm:remove", (e) => {
                 this.geoJsonGroup.removeLayer(e);
                 const geoJsonLayer = this.geoJsonGroup.toGeoJSON();
-                this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJsonLayer));
+                this.$wire.set(this.geoJsonStatePath, JSON.stringify("{\"type\":\"FeatureCollection\",\"features\":[]}"));
                 // this.saveGeoJson();
             });
 
