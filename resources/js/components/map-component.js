@@ -43,9 +43,9 @@ export default function mapComponent({
         markerIcon: defaultIcon,
         geoJsonFeature: geoJson || null,
         locate: locate || false,
-
         draw: draw || false,
         // Gruppo che contiene i layer di geojson
+        geoJsonLayer: null,
         geoJsonGroup: null,
         geoJsonStatePath: 'data.geojson',
 
@@ -228,9 +228,9 @@ export default function mapComponent({
         },
 
         saveGeoJson() {
-            const geoJson = this.geoJsonGroup.toGeoJSON();
-            console.log(geoJson);
-            this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJson));
+            this.geoJsonLayer = this.geoJsonGroup.toGeoJSON();
+            console.log(this.geoJsonLayer);
+            this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.geoJsonLayer));
         },
 
         loadGeoJson() {
