@@ -235,9 +235,16 @@ export default function mapComponent({
             this.map.gestureHandling.enable();
 
             // Enable locate control
-            if (this.locate) {
+            if (this.locate.active !== undefined && this.locate.active) {
                 L.control.locate({
-                    position: "topright"
+                    position: this.locate.position,
+                    flyTo: this.locate.flyTo,
+                    locateOptions: {
+                        enableHighAccuracy: this.locate.enableHighAccuracy,
+                        watch: this.locate.watch,
+                        timeout: this.locate.timeout,
+                        maximumAge: this.locate.maximumAge,
+                    }
                 }).addTo(this.map);
             }
             // Enable draw controls

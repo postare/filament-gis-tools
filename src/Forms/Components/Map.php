@@ -128,11 +128,34 @@ class Map extends Field
     }
 
     /**
-     * @param  bool  $locate Whether to show the locate button.
+     * @param  bool  $active Whether to show the locate button.
+     * @param  array  $options The locate options to use for the map.
+     *
+     * Possible options:
+     * - position:              string  The position of the locate button. Possible values are 'topleft', 'topright', 'bottomleft' or 'bottomright'
+     * - flyTo:                 boolean Whether to fly to the location on click.
+     * - enableHighAccuracy:    boolean Whether to enable high accuracy mode.
+     * - watch:                 boolean Whether to watch the location.
+     * - timeout:               int     The timeout to use for the location.
+     * - maximumAge:            int     The maximum age to use for the location.
      */
-    public function locate(bool $locate = true): static
+    public function locate(bool $active = true, array $options = []): static
     {
-        $this->locate = $locate;
+        $default_options = [
+            // https://github.com/domoritz/leaflet-locatecontrol
+            "position" => 'topright',
+            "flyTo" => true,
+            // https://leafletjs.com/reference.html#locate-options
+            "enableHighAccuracy" => true,
+            "watch" => true,
+            "timeout" => 10000, // ms
+            "maximumAge" => 0, // ms
+        ];
+
+        $this->locate = [
+            "active" => $active,
+            "options" => array_merge($default_options, $options)
+        ];
 
         return $this;
     }
