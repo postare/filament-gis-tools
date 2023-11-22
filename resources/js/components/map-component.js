@@ -198,6 +198,7 @@ export default function mapComponent({
             Lmap.on("pm:remove", (e)=> {
 
                 console.log(JSON.stringify(geoJsonGroup.toGeoJSON()));
+                console.log(JSON.stringify(e.layer.toGeoJSON()));
                 geoJsonGroup.removeLayer(e.layer);
                 console.log(JSON.stringify(geoJsonGroup.toGeoJSON()));
 
