@@ -6,8 +6,6 @@ import "leaflet-gesture-handling";
 
 import "leaflet.locatecontrol";
 
-var Lmap, geoJsonGroup;
-
 export default function mapComponent({
                                          location,
                                          statePath,
@@ -18,6 +16,8 @@ export default function mapComponent({
                                          locate,
                                          geoJson
                                      }) {
+    var Lmap,
+        geoJsonGroup;
     const defaultLat = 41.8902;
     const defaultLng = 12.4923;
 
@@ -196,8 +196,9 @@ export default function mapComponent({
 
             // {{-- Quando si rimuove un layer --}}
             Lmap.on("pm:remove", (e)=> {
-                geoJsonGroup.removeLayer(e.layer);
+                geoJsonGroup.removeLayer(e);
 
+                console.log(e);
                 console.log(e.layer);
                 console.log(geoJsonGroup.toGeoJSON());
 
