@@ -8,7 +8,6 @@ import "leaflet.locatecontrol";
 
 var Lmap, geoJsonGroup;
 
-
 export default function mapComponent({
                                          location,
                                          statePath,
@@ -146,12 +145,14 @@ export default function mapComponent({
                 L.control.layers(tileLayers).addTo(map);
             }
 
+            // Gruppo che contiene i layer di geojson
+            geoJsonGroup = L.featureGroup().addTo(map);
+
             Lmap = map;
         },
 
         // Geoman Plugin - https://geoman.io/leaflet-geoman
         initGeoman() {
-            const that = this;
             Lmap.pm.setLang(draw.options.lang);
             Lmap.pm.addControls({
                 position: draw.options.position,
@@ -196,6 +197,10 @@ export default function mapComponent({
             // {{-- Quando si rimuove un layer --}}
             Lmap.on("pm:remove", (e)=> {
                 geoJsonGroup.removeLayer(e.layer);
+
+                console.log(e.layer);
+                console.log(geoJsonGroup.toGeoJSON());
+
                 this.saveGeoJson();
             });
 
@@ -248,8 +253,7 @@ export default function mapComponent({
             // Inizializza la mappa
             this.initMap();
 
-            // Gruppo che contiene i layer di geojson
-            geoJsonGroup = L.featureGroup().addTo(Lmap);
+
 
             // Inizializza i watcher
             this.initializeWatchers();
