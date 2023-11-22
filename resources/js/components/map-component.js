@@ -195,9 +195,11 @@ export default function mapComponent({
             this.map.on("pm:remove", (e) => {
                 const newGeoJson = Alpine.raw(this.geoJsonGroup).removeLayer(e.layer);
 
-                console.log(newGeoJson);
+                let deepCopyObj = JSON.parse(JSON.stringify(newGeoJson));
 
-                this.$wire.set(this.geoJsonStatePath, newGeoJson);
+                console.log(deepCopyObj);
+
+                this.$wire.set(this.geoJsonStatePath, deepCopyObj);
                 // this.saveGeoJson();
             });
 
@@ -232,7 +234,6 @@ export default function mapComponent({
 
         saveGeoJson() {
             this.geoJsonLayer = this.geoJsonGroup.toGeoJSON();
-            console.log(this.geoJsonLayer);
             this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.geoJsonLayer));
         },
 
