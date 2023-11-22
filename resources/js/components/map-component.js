@@ -17,7 +17,8 @@ export default function mapComponent({
                                          geoJson
                                      }) {
     var Lmap,
-        geoJsonGroup;
+        geoJsonGroup,
+        geoJsonFeature = geoJson || null;
     const defaultLat = 41.8902;
     const defaultLng = 12.4923;
 
@@ -42,7 +43,7 @@ export default function mapComponent({
         marker: null,
         customIcon,
         markerIcon: defaultIcon,
-        geoJsonFeature: geoJson || null,
+        // geoJsonFeature: geoJson || null,
         locate: locate || false,
         draw: draw || false,
         // Gruppo che contiene i layer di geojson
@@ -246,62 +247,10 @@ export default function mapComponent({
             this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJsonLayer));
         },
 
-        // loadGeoJson() {
-        //
-        //
-        //     L.geoJSON(JSON.parse(this.geoJsonFeature)).addTo(geoJsonGroup);
-        // },
-
         loadGeoJson() {
 
-            const jsonString = JSON.parse(this.geoJsonFeature);
 
-            geoJsonGroup.clearLayers();
-
-            let parsed =
-                typeof jsonString == "string" ? JSON.parse(jsonString) : jsonString;
-            let featuresnew = L.geoJson(parsed, {
-                onEachFeature: function (feature, layer) {
-                    if (
-                        layer.feature.properties !== undefined &&
-                        feature.geometry.type !== "Point"
-                    ) {
-                        layer.setStyle(layer.feature.properties.styleMethod);
-                    }
-                    geoJsonGroup.addLayer(layer);
-                },
-                // pointToLayer: function (feature, latlng) {
-                //     // RITORNA UN MARKER INVISIBILE
-                //     return createPointMarker(latlng);
-                //
-                //     // return L.circle(latlng, {
-                //     //     fillColor: "#999999",
-                //     //     color: "#999999",
-                //     //     weight: 1,
-                //     //     opacity: 1,
-                //     //     fillOpacity: 0.5,
-                //     //     radius: 0.5,
-                //     //     pmIgnore: true,
-                //     //     snapIgnore: true,
-                //     // });
-                // },
-
-                // onEachFeature: function (feature, layer) {
-                //     if (
-                //         layer.feature.properties !== undefined &&
-                //         feature.geometry.type !== "Point"
-                //     ) {
-                //         layer.setStyle(layer.feature.properties.style);
-                //     }
-                //     geoJsonGroup.addLayer(layer);
-                // },
-                // // Carica i punti come marker circolari
-                // pointToLayer: function (feature, latlng) {
-                //     return L.circleMarker(latlng, {});
-                // },
-            });
-
-            // dispatchEvent(featureUpdated);
+            L.geoJSON(JSON.parse(geoJsonFeature)).addTo(geoJsonGroup);
         },
 
         init: function () {
@@ -343,7 +292,7 @@ export default function mapComponent({
             }
 
             // Load geojson feature
-            if (this.geoJsonFeature) {
+            if (geoJsonFeature) {
                 this.loadGeoJson();
             }
         }
