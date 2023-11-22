@@ -212,6 +212,7 @@ export default function mapComponent({
         initLeafletLocate() {
 
             console.log(this.locate);
+            const that = this;
 
             L.control.locate({
                 position: this.locate.position,
@@ -222,7 +223,7 @@ export default function mapComponent({
                 //     timeout: this.locate.timeout,
                 //     maximumAge: this.locate.maximumAge,
                 // }
-            }).addTo(this.map);
+            }).addTo(that.map);
         },
 
         saveGeoJson() {
