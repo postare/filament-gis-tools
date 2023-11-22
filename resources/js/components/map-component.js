@@ -45,7 +45,6 @@ export default function mapComponent({
         locate: locate || false,
         draw: draw || false,
         // Gruppo che contiene i layer di geojson
-        geoJsonLayer: null,
         geoJsonGroup: null,
         geoJsonStatePath: 'data.geojson',
 
@@ -194,6 +193,9 @@ export default function mapComponent({
             // {{-- Quando si rimuove un layer --}}
             this.map.on("pm:remove", (e) => {
                 this.geoJsonGroup.removeLayer(e.layer);
+
+                console.log(e.layer);
+
                 this.saveGeoJson();
             });
 
@@ -227,8 +229,8 @@ export default function mapComponent({
         },
 
         saveGeoJson() {
-            this.geoJsonLayer = this.geoJsonGroup.toGeoJSON();
-            this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.geoJsonLayer));
+            const geoJsonLayer = this.geoJsonGroup.toGeoJSON();
+            this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJsonLayer));
         },
 
         loadGeoJson() {
