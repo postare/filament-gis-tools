@@ -171,6 +171,7 @@ export default function mapComponent({
             // {{-- creazione --}}
             Lmap.on("pm:create", (e) => {
                 geoJsonGroup.addLayer(e.layer);
+                console.log(e.layer);
                 this.saveGeoJson();
             });
 
