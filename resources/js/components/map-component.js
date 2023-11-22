@@ -198,16 +198,14 @@ export default function mapComponent({
             // {{-- Quando si rimuove un layer --}}
             Lmap.on("pm:remove", (e)=> {
 
-                const layerId = e.layer._leaflet_id;
-
                 console.log(e);
 
-                if (geoJsonGroup.hasLayer(layerId)) {
+                if (geoJsonGroup.hasLayer(e)) {
                     console.log("Il layer è presente nel gruppo");
                 } else {
                     console.log("Il layer non è presente nel gruppo");
                 }
-                geoJsonGroup.removeLayer(layerId);
+                geoJsonGroup.removeLayer(e);
                 console.log(geoJsonGroup);
 
                 this.saveGeoJson();
