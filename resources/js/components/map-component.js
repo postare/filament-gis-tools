@@ -251,9 +251,9 @@ export default function mapComponent({
 
             // Enable locate control
             if (this.locate.active !== undefined && this.locate.active) {
-                // this.initLeafletLocate();
-                console.log('Locate control is not available yet');
+                this.initLeafletLocate();
             }
+            
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
 
