@@ -256,7 +256,7 @@ export default function mapComponent({
 
             const jsonString = JSON.parse(this.geoJsonFeature);
 
-            featureGroup.clearLayers();
+            geoJsonGroup.clearLayers();
 
             let parsed =
                 typeof jsonString == "string" ? JSON.parse(jsonString) : jsonString;
@@ -268,23 +268,23 @@ export default function mapComponent({
                     ) {
                         layer.setStyle(layer.feature.properties.styleMethod);
                     }
-                    featureGroup.addLayer(layer);
+                    geoJsonGroup.addLayer(layer);
                 },
-                pointToLayer: function (feature, latlng) {
-                    // RITORNA UN MARKER INVISIBILE
-                    return createPointMarker(latlng);
-
-                    // return L.circle(latlng, {
-                    //     fillColor: "#999999",
-                    //     color: "#999999",
-                    //     weight: 1,
-                    //     opacity: 1,
-                    //     fillOpacity: 0.5,
-                    //     radius: 0.5,
-                    //     pmIgnore: true,
-                    //     snapIgnore: true,
-                    // });
-                },
+                // pointToLayer: function (feature, latlng) {
+                //     // RITORNA UN MARKER INVISIBILE
+                //     return createPointMarker(latlng);
+                //
+                //     // return L.circle(latlng, {
+                //     //     fillColor: "#999999",
+                //     //     color: "#999999",
+                //     //     weight: 1,
+                //     //     opacity: 1,
+                //     //     fillOpacity: 0.5,
+                //     //     radius: 0.5,
+                //     //     pmIgnore: true,
+                //     //     snapIgnore: true,
+                //     // });
+                // },
 
                 // onEachFeature: function (feature, layer) {
                 //     if (
@@ -293,7 +293,7 @@ export default function mapComponent({
                 //     ) {
                 //         layer.setStyle(layer.feature.properties.style);
                 //     }
-                //     featureGroup.addLayer(layer);
+                //     geoJsonGroup.addLayer(layer);
                 // },
                 // // Carica i punti come marker circolari
                 // pointToLayer: function (feature, latlng) {
