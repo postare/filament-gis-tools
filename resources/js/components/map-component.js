@@ -199,7 +199,7 @@ export default function mapComponent({
 
                 const layerId = e.layer._leaflet_id;
 
-                console.log(layerId);
+                console.log(e);
 
                 if (geoJsonGroup.hasLayer(layerId)) {
                     console.log("Il layer è presente nel gruppo");
