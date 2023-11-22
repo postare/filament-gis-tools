@@ -6,7 +6,7 @@ import "leaflet-gesture-handling";
 
 import "leaflet.locatecontrol";
 
-var mappa;
+var Lmap;
 
 
 export default function mapComponent({
@@ -52,7 +52,7 @@ export default function mapComponent({
 
         addMarker() {
             if (this.marker) {
-                this.map.removeLayer(this.marker);
+                Lmap.removeLayer(this.marker);
             }
 
             // custom icon
@@ -60,13 +60,13 @@ export default function mapComponent({
                 this.markerIcon = L.icon(this.customIcon);
             }
 
-            this.marker = L.marker(this.map.getCenter(), {
+            this.marker = L.marker(Lmap.getCenter(), {
                 icon: this.markerIcon,
                 draggable: true,
                 pmIgnore: true // ignore marker for geoman
-            }).addTo(this.map);
+            }).addTo(Lmap);
 
-            this.updateStateWithCoordinates(this.map.getCenter());
+            this.updateStateWithCoordinates(Lmap.getCenter());
 
             this.marker.on('dragend', e => this.updateStateWithCoordinates(e.target.getLatLng()));
 
@@ -74,7 +74,7 @@ export default function mapComponent({
 
         removeMarker() {
             if (this.marker) {
-                this.map.removeLayer(this.marker);
+                Lmap.removeLayer(this.marker);
                 this.marker = null;
             }
         },
@@ -95,8 +95,8 @@ export default function mapComponent({
             this.$watch('lat', value => this.updateMarkerAndMap(value, this.lng));
             this.$watch('lng', value => this.updateMarkerAndMap(this.lat, value));
 
-            this.map.on('zoomend', () => {
-                this.zoom = this.map.getZoom();
+            Lmap.on('zoomend', () => {
+                this.zoom = Lmap.getZoom();
             });
         },
 
@@ -105,7 +105,7 @@ export default function mapComponent({
             this.marker.setLatLng(newLatLng);
 
             // Center the map to the new position
-            // this.map.panTo(newLatLng);
+            // Lmap.panTo(newLatLng);
         },
 
         // Prepara i layer di tiles in base alla configurazione data.
@@ -146,14 +146,14 @@ export default function mapComponent({
                 L.control.layers(tileLayers).addTo(map);
             }
 
-            mappa = map;
+            Lmap = map;
         },
 
         // Geoman Plugin - https://geoman.io/leaflet-geoman
         initGeoman() {
             const that = this;
-            this.map.pm.setLang(draw.options.lang);
-            this.map.pm.addControls({
+            Lmap.pm.setLang(draw.options.lang);
+            Lmap.pm.addControls({
                 position: draw.options.position,
                 drawCircle: draw.options.drawCircle,
                 drawCircleMarker: draw.options.drawCircleMarker,
@@ -168,47 +168,47 @@ export default function mapComponent({
             });
 
             // {{-- creazione --}}
-            this.map.on("pm:create", (e) => {
+            Lmap.on("pm:create", (e) => {
                 this.geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
-            this.map.on("pm:cut", (e) => {
+            Lmap.on("pm:cut", (e) => {
                 this.geoJsonGroup.removeLayer(e.originalLayer);
                 this.geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
             // {{-- edit --}}
-            this.map.on("pm:globaleditmodetoggled", (e) => {
+            Lmap.on("pm:globaleditmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            this.map.on("pm:globaldrawmodetoggled", (e) => {
+            Lmap.on("pm:globaldrawmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
             // {{-- drag --}}
-            this.map.on("pm:globaldragmodetoggled", (e) => {
+            Lmap.on("pm:globaldragmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
             // {{-- Quando si rimuove un layer --}}
-            this.map.on("pm:remove", (e)=> {
+            Lmap.on("pm:remove", (e)=> {
 
-                this.map.removeAll();
+                Lmap.removeAll();
                 this.saveGeoJson();
             });
 
-            this.map.on("pm:globalremovalmodetoggled", (e) => {
+            Lmap.on("pm:globalremovalmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            this.map.on("pm:globalcutmodetoggled", (e) => {
+            Lmap.on("pm:globalcutmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            this.map.on("pm:globalrotatemodetoggled", (e) => {
+            Lmap.on("pm:globalrotatemodetoggled", (e) => {
                 this.saveGeoJson();
             });
         },
@@ -226,7 +226,7 @@ export default function mapComponent({
                     timeout: locateOptions.timeout,
                     maximumAge: locateOptions.maximumAge,
                 }
-            }).addTo(this.map);
+            }).addTo(Lmap);
         },
 
         saveGeoJson() {
@@ -250,7 +250,7 @@ export default function mapComponent({
             this.initMap();
 
             // Gruppo che contiene i layer di geojson
-            this.geoJsonGroup = L.featureGroup().addTo(this.map);
+            this.geoJsonGroup = L.featureGroup().addTo(Lmap);
 
             // Inizializza i watcher
             this.initializeWatchers();
@@ -261,7 +261,7 @@ export default function mapComponent({
             }
 
             // Enable gesture handling on the map
-            this.map.gestureHandling.enable();
+            Lmap.gestureHandling.enable();
 
             // Enable locate control
             if (this.locate.active !== undefined && this.locate.active) {
