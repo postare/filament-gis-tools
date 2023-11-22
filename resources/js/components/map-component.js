@@ -229,6 +229,7 @@ export default function mapComponent({
 
         saveGeoJson() {
             const geoJson = this.geoJsonGroup.toGeoJSON();
+            console.log(geoJson);
             this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJson));
         },
 
