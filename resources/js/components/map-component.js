@@ -171,7 +171,6 @@ export default function mapComponent({
             // {{-- creazione --}}
             Lmap.on("pm:create", (e) => {
                 geoJsonGroup.addLayer(e.layer);
-                console.log(e.layer);
                 this.saveGeoJson();
             });
 
@@ -247,8 +246,62 @@ export default function mapComponent({
             this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJsonLayer));
         },
 
+        // loadGeoJson() {
+        //
+        //
+        //     L.geoJSON(JSON.parse(this.geoJsonFeature)).addTo(geoJsonGroup);
+        // },
+
         loadGeoJson() {
-            L.geoJSON(JSON.parse(this.geoJsonFeature)).addTo(geoJsonGroup);
+
+            jsonString = JSON.parse(this.geoJsonFeature);
+
+            featureGroup.clearLayers();
+
+            let parsed =
+                typeof jsonString == "string" ? JSON.parse(jsonString) : jsonString;
+            let featuresnew = L.geoJson(parsed, {
+                onEachFeature: function (feature, layer) {
+                    if (
+                        layer.feature.properties !== undefined &&
+                        feature.geometry.type !== "Point"
+                    ) {
+                        layer.setStyle(layer.feature.properties.styleMethod);
+                    }
+                    featureGroup.addLayer(layer);
+                },
+                pointToLayer: function (feature, latlng) {
+                    // RITORNA UN MARKER INVISIBILE
+                    return createPointMarker(latlng);
+
+                    // return L.circle(latlng, {
+                    //     fillColor: "#999999",
+                    //     color: "#999999",
+                    //     weight: 1,
+                    //     opacity: 1,
+                    //     fillOpacity: 0.5,
+                    //     radius: 0.5,
+                    //     pmIgnore: true,
+                    //     snapIgnore: true,
+                    // });
+                },
+
+                // onEachFeature: function (feature, layer) {
+                //     if (
+                //         layer.feature.properties !== undefined &&
+                //         feature.geometry.type !== "Point"
+                //     ) {
+                //         layer.setStyle(layer.feature.properties.style);
+                //     }
+                //     featureGroup.addLayer(layer);
+                // },
+                // // Carica i punti come marker circolari
+                // pointToLayer: function (feature, latlng) {
+                //     return L.circleMarker(latlng, {});
+                // },
+            });
+
+            // dispatchEvent(featureUpdated);
         },
 
         init: function () {
