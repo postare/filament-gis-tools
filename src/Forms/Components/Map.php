@@ -18,10 +18,7 @@ class Map extends Field
 
     private \Closure|array $marker_icon = [];
 
-    private \Closure|array $draw = [
-        "active" => false,
-        "statePath" => "geojson",
-    ];
+    private \Closure|array $draw = [];
 
     private bool $locate = false;
 
@@ -78,11 +75,27 @@ class Map extends Field
     /**
      * @param  array  $draw The draw options to use for the map.
      */
-    public function draw(bool $active = true, string $statePath = 'geojson'): static
+    public function draw(
+        bool $active = true,
+        string $statePath = 'geojson',
+        array $options = [
+            "position" =>  'topleft',
+            "drawCircle" =>  false,
+            "drawCircleMarker" =>  false,
+            "drawPolyline" =>  true,
+            "drawRectangle" =>  false,
+            "drawPolygon" =>  true,
+            "drawMarker" =>  false,
+            "drawText" =>  false,
+            "cutPolygon" =>  true,
+            "editMode" =>  true,
+            "removalMode" =>  false
+        ]): static
     {
         $this->draw = [
             "active" => $active,
             "statePath" => $statePath,
+            "options" => $options,
         ];
 
         return $this;
