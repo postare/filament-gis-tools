@@ -6,7 +6,7 @@ import "leaflet-gesture-handling";
 
 import "leaflet.locatecontrol";
 
-var Lmap;
+var Lmap, geoJsonGroup;
 
 
 export default function mapComponent({
@@ -47,7 +47,7 @@ export default function mapComponent({
         locate: locate || false,
         draw: draw || false,
         // Gruppo che contiene i layer di geojson
-        geoJsonGroup: null,
+        // geoJsonGroup: null,
         geoJsonStatePath: 'data.geojson',
 
         addMarker() {
@@ -169,13 +169,13 @@ export default function mapComponent({
 
             // {{-- creazione --}}
             Lmap.on("pm:create", (e) => {
-                this.geoJsonGroup.addLayer(e.layer);
+                geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
             Lmap.on("pm:cut", (e) => {
-                this.geoJsonGroup.removeLayer(e.originalLayer);
-                this.geoJsonGroup.addLayer(e.layer);
+                geoJsonGroup.removeLayer(e.originalLayer);
+                geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
@@ -230,12 +230,12 @@ export default function mapComponent({
         },
 
         saveGeoJson() {
-            const geoJsonLayer = this.geoJsonGroup.toGeoJSON();
+            const geoJsonLayer = geoJsonGroup.toGeoJSON();
             this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJsonLayer));
         },
 
         loadGeoJson() {
-            L.geoJSON(JSON.parse(this.geoJsonFeature)).addTo(this.geoJsonGroup);
+            L.geoJSON(JSON.parse(this.geoJsonFeature)).addTo(geoJsonGroup);
         },
 
         init: function () {
@@ -250,7 +250,7 @@ export default function mapComponent({
             this.initMap();
 
             // Gruppo che contiene i layer di geojson
-            this.geoJsonGroup = L.featureGroup().addTo(Lmap);
+            geoJsonGroup = L.featureGroup().addTo(Lmap);
 
             // Inizializza i watcher
             this.initializeWatchers();
