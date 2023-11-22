@@ -193,8 +193,11 @@ export default function mapComponent({
 
             // {{-- Quando si rimuove un layer --}}
             this.map.on("pm:remove", (e)=> {
-                this.geoJsonGroup.removeLayer(e);
-                console.log(this.geoJsonGroup.toGeoJSON());
+
+                const gJg = this.deepCopy(this.geoJsonGroup);
+
+                gJg.removeLayer(e);
+                console.log(gJg.toGeoJSON());
                 this.saveGeoJson();
             });
 
@@ -235,6 +238,31 @@ export default function mapComponent({
         loadGeoJson() {
             L.geoJSON(JSON.parse(this.geoJsonFeature)).addTo(this.geoJsonGroup);
         },
+
+        deepCopy(obj, map = new WeakMap()) {
+        // Controlla se l'oggetto è null o non è un oggetto (es. stringhe, numeri)
+        if (typeof obj !== 'object' || obj === null) {
+            return obj;
+        }
+
+        // Controlla se l'oggetto è già stato visitato per gestire i riferimenti circolari
+        if (map.has(obj)) {
+            return map.get(obj);
+        }
+
+        // Crea un nuovo oggetto/array (a seconda di cosa è obj)
+        const result = Array.isArray(obj) ? [] : {};
+
+        // Aggiunge l'oggetto al map per tenere traccia dei riferimenti visitati
+        map.set(obj, result);
+
+        for (const key of Object.keys(obj)) {
+            // Ricorsivamente copia ogni proprietà dell'oggetto
+            result[key] = deepCopy(obj[key], map);
+        }
+
+        return result;
+    },
 
         init: function () {
 
