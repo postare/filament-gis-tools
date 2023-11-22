@@ -254,15 +254,17 @@ export default function mapComponent({
                 // this.initLeafletLocate();
                 const locateOptions = {...this.locate};
 
+                console.log(locateOptions);
+
                 L.control.locate({
-                    position: locateOptions.position,
-                    flyTo: locateOptions.flyTo,
-                    locateOptions: {
-                        enableHighAccuracy: locateOptions.enableHighAccuracy,
-                        watch: locateOptions.watch,
-                        timeout: locateOptions.timeout,
-                        maximumAge: locateOptions.maximumAge,
-                    }
+                    // position: locateOptions.position,
+                    // flyTo: locateOptions.flyTo,
+                    // locateOptions: {
+                    //     enableHighAccuracy: locateOptions.enableHighAccuracy,
+                    //     watch: locateOptions.watch,
+                    //     timeout: locateOptions.timeout,
+                    //     maximumAge: locateOptions.maximumAge,
+                    // }
                 }).addTo(this.map);
             }
 
