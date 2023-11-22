@@ -6,7 +6,7 @@
         $tiles = $getTiles() ? json_encode($getTiles()) : '{}';
         $markerIcon = $getMarkerIcon() ? json_encode($getMarkerIcon()) : '{}';
         $draw = $getDraw() ? json_encode($getDraw()) : '{}';
-        $locate = $getLocate() ? json_encode($getLocate()) : 'false';
+        $locate = $getLocate() ? json_encode($getLocate()) : '{}';
     @endphp
 
     <div ax-load
@@ -18,8 +18,8 @@
             zoom: @js($zoom),
             tiles: {{ $tiles }},
             customIcon: {{ $markerIcon }},
-            draw: {{  $draw }},
-            locate: {{$locate}},
+            draw: {{ $draw }},
+            locate: {{ $locate }},
          })"
          x-ignore
          wire:ignore

@@ -19,10 +19,15 @@ class Map extends Field
     private \Closure|array $marker_icon = [];
 
     private \Closure|array $draw = [
-        "active" => false
+        "active" => false,
+        "statePath" => 'geojson',
+        "options" => []
     ];
 
-    private bool $locate = false;
+    private \Closure|array $locate = [
+        "active" => false,
+        "options" => []
+    ];
 
     /**
      * @param  int|\Closure|null  $zoom The initial zoom at which to display the map.
@@ -190,7 +195,7 @@ class Map extends Field
         return $this->evaluate($this->draw);
     }
 
-    public function getLocate(): bool
+    public function getLocate(): array
     {
         return $this->evaluate($this->locate);
     }
