@@ -203,7 +203,7 @@ export default function mapComponent({
                     console.log("Il layer non è presente nel gruppo");
                 }
                 geoJsonGroup.removeLayer(e.layer);
-                console.log(JSON.stringify(geoJsonGroup.toGeoJSON()));
+                console.log(geoJsonGroup.getLayers());
 
                 this.saveGeoJson();
             });
