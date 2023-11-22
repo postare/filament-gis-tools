@@ -210,15 +210,18 @@ export default function mapComponent({
 
         // Leaflet.Locate Plugin - https://github.com/domoritz/leaflet-locatecontrol
         initLeafletLocate() {
+
+            console.log(this.locate);
+
             L.control.locate({
                 position: this.locate.position,
-                flyTo: this.locate.flyTo,
-                locateOptions: {
-                    enableHighAccuracy: this.locate.enableHighAccuracy,
-                    watch: this.locate.watch,
-                    timeout: this.locate.timeout,
-                    maximumAge: this.locate.maximumAge,
-                }
+                // flyTo: this.locate.flyTo,
+                // locateOptions: {
+                //     enableHighAccuracy: this.locate.enableHighAccuracy,
+                //     watch: this.locate.watch,
+                //     timeout: this.locate.timeout,
+                //     maximumAge: this.locate.maximumAge,
+                // }
             }).addTo(this.map);
         },
 
@@ -253,7 +256,7 @@ export default function mapComponent({
             if (this.locate.active !== undefined && this.locate.active) {
                 this.initLeafletLocate();
             }
-            
+
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
 
