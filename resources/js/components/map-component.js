@@ -208,8 +208,8 @@ export default function mapComponent({
             });
         },
 
-        // Location Plugin - https://github.com/domoritz/leaflet-locatecontrol
-        initLeafletLocatecontrol() {
+        // Leaflet.Locate Plugin - https://github.com/domoritz/leaflet-locatecontrol
+        initLeafletLocate() {
             L.control.locate({
                 position: this.locate.position,
                 flyTo: this.locate.flyTo,
@@ -251,7 +251,7 @@ export default function mapComponent({
 
             // Enable locate control
             if (this.locate.active !== undefined && this.locate.active) {
-                this.initLeafletLocatecontrol();
+                this.initLeafletLocate();
             }
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
