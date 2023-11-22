@@ -193,8 +193,8 @@ export default function mapComponent({
 
             // {{-- Quando si rimuove un layer --}}
             this.map.on("pm:remove", (e) => {
-                this.geoJsonGroup.removeLayer(e.layer);
-                this.$wire.set(this.geoJsonStatePath, JSON.stringify(this.geoJsonLayer));
+                const newGeoJson = Alpine.raw(this.geoJsonGroup).removeLayer(e.layer);
+                this.$wire.set(this.geoJsonStatePath, JSON.stringify(newGeoJson));
                 // this.saveGeoJson();
             });
 
