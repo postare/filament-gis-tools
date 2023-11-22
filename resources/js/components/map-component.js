@@ -240,29 +240,29 @@ export default function mapComponent({
         },
 
         deepCopy(obj, map = new WeakMap()) {
-        // Controlla se l'oggetto è null o non è un oggetto (es. stringhe, numeri)
-        if (typeof obj !== 'object' || obj === null) {
-            return obj;
-        }
+            // Controlla se l'oggetto è null o non è un oggetto (es. stringhe, numeri)
+            if (typeof obj !== 'object' || obj === null) {
+                return obj;
+            }
 
-        // Controlla se l'oggetto è già stato visitato per gestire i riferimenti circolari
-        if (map.has(obj)) {
-            return map.get(obj);
-        }
+            // Controlla se l'oggetto è già stato visitato per gestire i riferimenti circolari
+            if (map.has(obj)) {
+                return map.get(obj);
+            }
 
-        // Crea un nuovo oggetto/array (a seconda di cosa è obj)
-        const result = Array.isArray(obj) ? [] : {};
+            // Crea un nuovo oggetto/array (a seconda di cosa è obj)
+            const result = Array.isArray(obj) ? [] : {};
 
-        // Aggiunge l'oggetto al map per tenere traccia dei riferimenti visitati
-        map.set(obj, result);
+            // Aggiunge l'oggetto al map per tenere traccia dei riferimenti visitati
+            map.set(obj, result);
 
-        for (const key of Object.keys(obj)) {
-            // Ricorsivamente copia ogni proprietà dell'oggetto
-            result[key] = deepCopy(obj[key], map);
-        }
+            for (const key of Object.keys(obj)) {
+                // Ricorsivamente copia ogni proprietà dell'oggetto
+                result[key] = deepCopy(obj[key], map);
+            }
 
-        return result;
-    },
+            return result;
+        },
 
         init: function () {
 
