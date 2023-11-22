@@ -249,7 +249,16 @@ export default function mapComponent({
 
         loadGeoJson() {
             const layer = L.geoJSON(JSON.parse(geoJsonFeature));
+
+            console.log(layer);
+
             geoJsonGroup.addLayer(layer);
+
+            if (geoJsonGroup.hasLayer(layer)) {
+                console.log("Il layer è presente nel gruppo");
+            } else {
+                console.log("Il layer non è presente nel gruppo");
+            }
         },
 
         init: function () {
