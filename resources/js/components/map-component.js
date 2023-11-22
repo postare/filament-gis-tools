@@ -232,7 +232,7 @@ export default function mapComponent({
         },
 
         loadGeoJson() {
-            L.geoJSON(geoJsonFeature).addTo(this.map);
+            L.geoJSON(this.geoJsonFeature).addTo(this.map);
         },
 
         init: function () {
