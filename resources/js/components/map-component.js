@@ -193,14 +193,8 @@ export default function mapComponent({
 
             // {{-- Quando si rimuove un layer --}}
             this.map.on("pm:remove", (e) => {
-                const newGeoJson = this.geoJsonGroup.removeLayer(e.layer);
-
-                let deepCopyObj = JSON.parse(JSON.stringify(newGeoJson));
-
-                console.log(deepCopyObj);
-
-                this.$wire.set(this.geoJsonStatePath, deepCopyObj);
-                // this.saveGeoJson();
+                this.geoJsonGroup.removeLayer(e.layer);
+                this.saveGeoJson();
             });
 
             this.map.on("pm:globalremovalmodetoggled", (e) => {
