@@ -146,6 +146,7 @@ export default function mapComponent({
             this.map = map;
         },
 
+        // Geoman Plugin - https://geoman.io/leaflet-geoman
         initGeoman() {
             this.map.pm.setLang(draw.options.lang);
             this.map.pm.addControls({
@@ -207,6 +208,20 @@ export default function mapComponent({
             });
         },
 
+        // Location Plugin - https://github.com/domoritz/leaflet-locatecontrol
+        initLeafletLocatecontrol() {
+            L.control.locate({
+                position: this.locate.position,
+                flyTo: this.locate.flyTo,
+                locateOptions: {
+                    enableHighAccuracy: this.locate.enableHighAccuracy,
+                    watch: this.locate.watch,
+                    timeout: this.locate.timeout,
+                    maximumAge: this.locate.maximumAge,
+                }
+            }).addTo(this.map);
+        },
+
         saveGeoJson() {
             const geoJson = this.geoJsonGroup.toGeoJSON();
             this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJson));
@@ -236,16 +251,7 @@ export default function mapComponent({
 
             // Enable locate control
             if (this.locate.active !== undefined && this.locate.active) {
-                L.control.locate({
-                    position: this.locate.position,
-                    flyTo: this.locate.flyTo,
-                    locateOptions: {
-                        enableHighAccuracy: this.locate.enableHighAccuracy,
-                        watch: this.locate.watch,
-                        timeout: this.locate.timeout,
-                        maximumAge: this.locate.maximumAge,
-                    }
-                }).addTo(this.map);
+                this.initLeafletLocatecontrol();
             }
             // Enable draw controls
             if (this.draw.active !== undefined && this.draw.active) {
