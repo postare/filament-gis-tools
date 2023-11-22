@@ -137,9 +137,12 @@ TextInput::make('longitude'), // Field to store the longitude
 
 ```php
 Map::make('location')
-    ->draw(active: true, statePath: 'geojson'), // true to enable drawing
+    ->draw(active: true, statePath: 'area') // true to enable drawing
 
-Textarea::make('geojson'), // Field to store the geojson
+    // Load the geojson from the database
+    ->geoJson(fn (?Zone $record): ?string => $record?->area?->toJson()), 
+
+Textarea::make('area'), // Field to store the geojson
 ```
 
 ## License
