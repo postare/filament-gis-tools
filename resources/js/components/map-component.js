@@ -193,11 +193,8 @@ export default function mapComponent({
 
             // {{-- Quando si rimuove un layer --}}
             this.map.on("pm:remove", function(e) {
-                const geoJsonLayer = that.geoJsonGroup.removeLayer(e).toGeoJSON();
-
-                console.log(JSON.stringify(e.layer.toGeoJSON()));
-
-                that.$wire.set(that.geoJsonStatePath, JSON.stringify(geoJsonLayer));
+                this.geoJsonGroup.removeLayer(e.layer);
+                this.saveGeoJson();
             });
 
             this.map.on("pm:globalremovalmodetoggled", (e) => {
