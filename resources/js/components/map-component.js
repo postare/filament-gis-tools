@@ -15,7 +15,7 @@ export default function mapComponent({
                                          customIcon,
                                          draw,
                                          locate,
-                                         geojsonFeature
+                                         geoJson
                                      }) {
     const defaultLat = 41.8902;
     const defaultLng = 12.4923;
@@ -41,7 +41,7 @@ export default function mapComponent({
         marker: null,
         customIcon,
         markerIcon: defaultIcon,
-        geojsonFeature: geojsonFeature || null,
+        geoJsonFeature: geoJson || null,
         locate: locate || false,
 
         draw: draw || false,
@@ -232,7 +232,7 @@ export default function mapComponent({
         },
 
         loadGeoJson() {
-            L.geoJSON(geojsonFeature).addTo(this.map);
+            L.geoJSON(geoJsonFeature).addTo(this.map);
         },
 
         init: function () {
@@ -275,8 +275,8 @@ export default function mapComponent({
             }
 
             // Load geojson feature
-            if (this.geojsonFeature) {
-                console.log(this.geojsonFeature);
+            if (this.geoJsonFeature) {
+                console.log(this.geoJsonFeature);
                 this.loadGeoJson();
             }
         }
