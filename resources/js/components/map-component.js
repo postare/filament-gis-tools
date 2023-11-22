@@ -149,6 +149,7 @@ export default function mapComponent({
 
         // Geoman Plugin - https://geoman.io/leaflet-geoman
         initGeoman() {
+            const that = this;
             this.map.pm.setLang(draw.options.lang);
             this.map.pm.addControls({
                 position: draw.options.position,
@@ -191,10 +192,10 @@ export default function mapComponent({
             });
 
             // {{-- Quando si rimuove un layer --}}
-            this.map.on("pm:remove", (e) => {
-                const gJg = {...this.geoJsonGroup};
-                gJg.removeLayer(e);
-                this.$wire.set(this.geoJsonStatePath, JSON.stringify(gJg));
+            this.map.on("pm:remove", function(e) {
+                that.geoJsonGroup.removeLayer(e);
+                const geoJsonLayer = that.geoJsonGroup.toGeoJSON();
+                this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJsonLayer));
             });
 
             this.map.on("pm:globalremovalmodetoggled", (e) => {
