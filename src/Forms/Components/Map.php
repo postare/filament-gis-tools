@@ -30,7 +30,7 @@ class Map extends Field
     /**
      * @param  array  $marker The marker to use for the map.
      */
-    public function disableMarker(array|\Closure $disableMarker): static
+    public function disableMarker(bool|\Closure $disableMarker = true): static
     {
         $this->disableMarker = $disableMarker;
 
@@ -180,7 +180,7 @@ class Map extends Field
         return $this;
     }
 
-    public function getDisableMarker(): array
+    public function getDisableMarker(): bool
     {
         return $this->evaluate($this->disableMarker);
     }

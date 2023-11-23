@@ -1,7 +1,7 @@
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
 
     @php
-        $disableMarker = $getDisableMarker() ?? false;
+        $disableMarker = $getDisableMarker() ? 'true' : 'false';
         $height = $getHeight() ?? 250;
         $zoom = $getZoom() ?? 13;
         $tiles = $getTiles() ? json_encode($getTiles()) : '{}';
@@ -39,7 +39,7 @@
             </div>
         @endif
 
-        @if (!$disableMarker)
+        @if (!$getDisableMarker())
             <button x-show="!marker" class="absolute bottom-0 left-0 z-50 m-4 flex h-12 w-12 items-center justify-center rounded-full border-green-700 bg-green-500 px-2 py-1 hover:bg-green-800" type="button" @click="addMarker()"
                 title="@lang('gis-tools::gis-tools.add_marker')">
                 @svg('heroicon-s-map-pin', 'h-6 w-6 text-white')
