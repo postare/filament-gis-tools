@@ -158,61 +158,70 @@ export default function mapComponent({
 
         // Geoman Plugin - https://geoman.io/leaflet-geoman
         initGeoman() {
+
+            const pmOptions = draw.options;
+
+            // Set the language for Leaflet Geoman
             Lmap.pm.setLang(draw.options.lang);
+
+            // Add drawing controls based on provided options
             Lmap.pm.addControls({
-                position: draw.options.position,
-                drawCircle: draw.options.drawCircle,
-                drawCircleMarker: draw.options.drawCircleMarker,
-                drawPolyline: draw.options.drawPolyline,
-                drawRectangle: draw.options.drawRectangle,
-                drawPolygon: draw.options.drawPolygon,
-                drawMarker: draw.options.drawMarker,
-                drawText: draw.options.drawText,
-                cutPolygon: draw.options.cutPolygon,
-                editMode: draw.options.editMode,
-                removalMode: draw.options.removalMode,
+                position: pmOptions.position,
+                ...pmOptions,
             });
 
-            // {{-- creazione --}}
+            // Event handlers for Leaflet Geoman
+
+            // Event handler for feature creation
             Lmap.on("pm:create", (e) => {
+                // Add the created layer to the GeoJSON group
                 geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
+            // Event handler for cutting a polygon
             Lmap.on("pm:cut", (e) => {
+                // Remove the original layer and add the new one after cutting
                 geoJsonGroup.removeLayer(e.originalLayer);
                 geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
-            // {{-- edit --}}
+            // Event handlers for edit modes
+
+            // Global edit mode
             Lmap.on("pm:globaleditmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
+            // Global draw mode
             Lmap.on("pm:globaldrawmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            // {{-- drag --}}
+            // Global drag mode
             Lmap.on("pm:globaldragmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            // {{-- Quando si rimuove un layer --}}
-            Lmap.on("pm:remove", (e)=> {
+            // Event handler for removing a feature
+            Lmap.on("pm:remove", (e) => {
+                // Remove the layer from the GeoJSON group
                 geoJsonGroup.removeLayer(e.layer);
                 this.saveGeoJson();
             });
 
+            // Global removal mode
             Lmap.on("pm:globalremovalmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
+            // Global cut mode
             Lmap.on("pm:globalcutmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
+            // Global rotate mode
             Lmap.on("pm:globalrotatemodetoggled", (e) => {
                 this.saveGeoJson();
             });
@@ -247,12 +256,12 @@ export default function mapComponent({
 
         loadGeoJson() {
 
-            const geoJsonString = JSON.parse(geoJsonFeature);
+            const featureObject = JSON.parse(geoJsonFeature);
 
             geoJsonGroup.clearLayers();
 
             // Aggiungiamo ogni feature al gruppo
-            L.geoJSON(geoJsonString,{
+            L.geoJSON(featureObject,{
                 onEachFeature: function (feature, layer) {
                     geoJsonGroup.addLayer(layer);
                 }
