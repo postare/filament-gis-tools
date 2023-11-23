@@ -76,6 +76,8 @@ export default function mapComponent({
             if (this.marker) {
                 Lmap.removeLayer(this.marker);
                 this.marker = null;
+
+                this.updateStateWithCoordinates({lat: null, lng: null});
             }
         },
 
@@ -246,12 +248,7 @@ export default function mapComponent({
         },
 
         loadGeoJson() {
-            // const layer = L.geoJSON(JSON.parse(geoJsonFeature));
-            //
-            // console.log(layer);
-            //
-            // geoJsonGroup.addLayer(layer._layers[Object.keys(layer._layers)[0]]);
-
+            // Aggiungiamo ogni feature al gruppo
             L.geoJSON(JSON.parse(geoJsonFeature),{
                 onEachFeature: function (feature, layer) {
                     geoJsonGroup.addLayer(layer);
@@ -269,8 +266,6 @@ export default function mapComponent({
 
             // Inizializza la mappa
             this.initMap();
-
-
 
             // Inizializza i watcher
             this.initializeWatchers();

@@ -7,12 +7,7 @@ Gis Tools is a highly customizable plugin for FilamentPHP, designed to simplify 
 within your web application. With Gis Tools, you can effortlessly integrate interactive maps, analyze geospatial data,
 and enhance the user experience with advanced GIS features.
 
-The system harnesses the power of [Leaflet](https://leafletjs.com/) to provide interactive maps and relies on the
-[Laravel Eloquent Spatial](https://github.com/MatanYadaev/laravel-eloquent-spatial) package to simplify
-the handling of spatial data.
-
-To gain a comprehensive understanding of how to make the most of `matanyadaev/laravel-eloquent-spatial`, we highly
-recommend referring to its official documentation.
+The system harnesses the power of [Leaflet](https://leafletjs.com/) to provide interactive maps.
 
 ## Installation
 
