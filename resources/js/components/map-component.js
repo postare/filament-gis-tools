@@ -162,15 +162,12 @@ export default function mapComponent({
             const pmOptions = draw.options;
 
             // Set the language for Leaflet Geoman
-            Lmap.pm.setLang(draw.options.lang);
+            Lmap.pm.setLang(pmOptions.lang);
 
             // Add drawing controls based on provided options
-            Lmap.pm.addControls({
-                position: pmOptions.position,
-                ...pmOptions,
-            });
+            Lmap.pm.addControls({...pmOptions });
 
-            // Event handlers for Leaflet Geoman
+            // Event handlers
 
             // Event handler for feature creation
             Lmap.on("pm:create", (e) => {
