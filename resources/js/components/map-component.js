@@ -201,17 +201,7 @@ export default function mapComponent({
 
             // {{-- Quando si rimuove un layer --}}
             Lmap.on("pm:remove", (e)=> {
-
-                console.log(e);
-
-                if (geoJsonGroup.hasLayer(e)) {
-                    console.log("Il layer è presente nel gruppo");
-                } else {
-                    console.log("Il layer non è presente nel gruppo");
-                }
                 geoJsonGroup.removeLayer(e.layer);
-                console.log(geoJsonGroup);
-
                 this.saveGeoJson();
             });
 
@@ -256,8 +246,13 @@ export default function mapComponent({
         },
 
         loadGeoJson() {
+
+            const geoJsonString = JSON.parse(geoJsonFeature);
+
+            geoJsonGroup.clearLayers();
+
             // Aggiungiamo ogni feature al gruppo
-            L.geoJSON(JSON.parse(geoJsonFeature),{
+            L.geoJSON(geoJsonString,{
                 onEachFeature: function (feature, layer) {
                     geoJsonGroup.addLayer(layer);
                 }
