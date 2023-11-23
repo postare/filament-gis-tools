@@ -226,16 +226,16 @@ export default function mapComponent({
 
         // Leaflet.Locate Plugin - https://github.com/domoritz/leaflet-locatecontrol
         initLeafletLocate() {
-            const locateOptions = {...this.locate.options};
+            const options = {...this.locate.options};
 
             L.control.locate({
-                position: locateOptions.position,
-                flyTo: locateOptions.flyTo,
+                position: options.position,
+                flyTo: options.flyTo,
                 locateOptions: {
-                    enableHighAccuracy: locateOptions.enableHighAccuracy,
-                    watch: locateOptions.watch,
-                    timeout: locateOptions.timeout,
-                    maximumAge: locateOptions.maximumAge,
+                    enableHighAccuracy: options.enableHighAccuracy,
+                    watch: options.watch,
+                    timeout: options.timeout,
+                    maximumAge: options.maximumAge,
                 }
             }).addTo(Lmap);
         },
