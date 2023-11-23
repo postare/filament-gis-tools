@@ -8,6 +8,8 @@ class Map extends Field
 {
     protected string $view = 'gis-tools::filament.forms.components.map';
 
+    private \Closure|bool $disableMarker = false;
+
     private \Closure|int|null $height = null;
 
     private \Closure|int|null $zoom = 10;
@@ -23,6 +25,17 @@ class Map extends Field
     private \Closure|array $locate = [];
 
     private \Closure|string|null $geoJson = null;
+
+
+    /**
+     * @param  array  $marker The marker to use for the map.
+     */
+    public function disableMarker(array|\Closure $disableMarker): static
+    {
+        $this->disableMarker = $disableMarker;
+
+        return $this;
+    }
 
     /**
      * @param  int|\Closure|null  $zoom The initial zoom at which to display the map.
@@ -165,6 +178,11 @@ class Map extends Field
         $this->geoJson = $geoJson;
 
         return $this;
+    }
+
+    public function getDisableMarker(): array
+    {
+        return $this->evaluate($this->disableMarker);
     }
 
     public function getZoom(): ?int

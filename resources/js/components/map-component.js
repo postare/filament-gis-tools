@@ -9,6 +9,7 @@ import "leaflet.locatecontrol";
 export default function mapComponent({
                                          location,
                                          statePath,
+                                         disableMarker,
                                          zoom,
                                          tiles,
                                          customIcon,
@@ -34,6 +35,7 @@ export default function mapComponent({
 
     return {
         location,
+        disableMarker,
         statePath,
         zoom: zoom || 10, // default zoom
         tiles: tiles || null,
