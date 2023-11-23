@@ -173,37 +173,45 @@ export default function mapComponent({
                 removalMode: draw.options.removalMode,
             });
 
-            // When drawing a new element
+            // {{-- creazione --}}
             Lmap.on("pm:create", (e) => {
                 geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
-            // }
             Lmap.on("pm:cut", (e) => {
                 geoJsonGroup.removeLayer(e.originalLayer);
                 geoJsonGroup.addLayer(e.layer);
                 this.saveGeoJson();
             });
 
-            // Global edit mode
+            // {{-- edit --}}
             Lmap.on("pm:globaleditmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            // Global draw mode
             Lmap.on("pm:globaldrawmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            // Global drag mode
+            // {{-- drag --}}
             Lmap.on("pm:globaldragmodetoggled", (e) => {
                 this.saveGeoJson();
             });
 
-            // When removing an element
+            // {{-- Quando si rimuove un layer --}}
             Lmap.on("pm:remove", (e)=> {
+
+                console.log(e);
+
+                if (geoJsonGroup.hasLayer(e)) {
+                    console.log("Il layer è presente nel gruppo");
+                } else {
+                    console.log("Il layer non è presente nel gruppo");
+                }
                 geoJsonGroup.removeLayer(e.layer);
+                console.log(geoJsonGroup);
+
                 this.saveGeoJson();
             });
 
@@ -247,18 +255,12 @@ export default function mapComponent({
             this.$wire.set(this.geoJsonStatePath, geoJsonString);
         },
 
-        loadGeoJson(geoJsonFeature) {
-            // Parse il GeoJSON
-            const geoJsonData = JSON.parse(geoJsonFeature);
-
-            // Rimuovi tutti i layer esistenti dal gruppo prima di aggiungere nuovi layer
-            geoJsonGroup.clearLayers();
-
-            // Aggiungi ogni feature al gruppo
-            L.geoJSON(geoJsonData, {
-              onEachFeature: function (feature, layer) {
-                geoJsonGroup.addLayer(layer);
-              }
+        loadGeoJson() {
+            // Aggiungiamo ogni feature al gruppo
+            L.geoJSON(JSON.parse(geoJsonFeature),{
+                onEachFeature: function (feature, layer) {
+                    geoJsonGroup.addLayer(layer);
+                }
             });
         },
 
