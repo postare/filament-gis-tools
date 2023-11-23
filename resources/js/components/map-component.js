@@ -245,14 +245,14 @@ export default function mapComponent({
         },
 
         saveGeoJson() {
-            let geoJsonLayer = geoJsonGroup.toGeoJSON();
+            const geoJsonLayer = geoJsonGroup.toGeoJSON();
 
-            // if empty FeatureCollection, set to null
-            if (geoJsonLayer.features.length === 0) {
-                geoJsonLayer = null;
-            }
+            // Convert GeoJSON object to string
+            const geoJsonString = geoJsonLayer.features.length === 0
+                ? null
+                : JSON.stringify(geoJsonLayer);
 
-            this.$wire.set(this.geoJsonStatePath, JSON.stringify(geoJsonLayer));
+            this.$wire.set(this.geoJsonStatePath, geoJsonString);
         },
 
         loadGeoJson() {
